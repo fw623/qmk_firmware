@@ -44,10 +44,10 @@ enum custom_keycodes {
 #define TG_QWTZ TG(L_QWERTZ)
 #define TG_CUBE TG(L_CUBING)
 #define TT_NAV  TT(L_NAV)
-#define NUMCAPS LCTL_T(KC_ESC)
-#define CTL_ESC LT(L_NUM, KC_CAPS)
+#define CTL_ESC LCTL_T(KC_ESC)
+#define NUMCAPS LT(L_NUM, KC_CAPS)
 
-const uint16_t PROGMEM keymaps[MY_MAX_LAYER][MATRIX_ROWS][MATRIX_COLS];
+extern const uint16_t PROGMEM keymaps[MY_MAX_LAYER + 1][MATRIX_ROWS][MATRIX_COLS];
 
 /* ========== LED definitions ========== */
 #define ooooooo {  0,  0,  0} // LED off
@@ -58,4 +58,4 @@ const uint16_t PROGMEM keymaps[MY_MAX_LAYER][MATRIX_ROWS][MATRIX_COLS];
 #define PINK    {205,255,255}
 #define PINK_RGB 209,  0,255
 
-const uint8_t PROGMEM ledmap[MY_MAX_LAYER][DRIVER_LED_TOTAL][3];
+extern const uint8_t PROGMEM ledmap[MY_MAX_LAYER + 1][DRIVER_LED_TOTAL][3];

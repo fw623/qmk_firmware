@@ -1,7 +1,7 @@
 #include "layout.h"
 
 // clang-format off
-const uint16_t PROGMEM keymaps [MY_MAX_LAYER][MATRIX_ROWS][MATRIX_COLS] = {
+const uint16_t PROGMEM keymaps [MY_MAX_LAYER + 1][MATRIX_ROWS][MATRIX_COLS] = {
   [L_LOWER] = LAYOUT_moonlander(
     TG_GAME ,KC_F1   ,KC_F2   ,KC_F3   ,KC_F4   ,KC_F5   ,KC_F11        ,KC_F12  ,KC_F6   ,KC_F7   ,KC_F8   ,KC_F9   ,KC_F10  ,TG_QWTZ ,
     _______ ,KC_ENT  ,KC_DOT  ,KC_O    ,KC_U    ,DE_AE   ,_______       ,_______ ,KC_Q    ,KC_G    ,KC_C    ,KC_L    ,_______ ,TG_CUBE ,
@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps [MY_MAX_LAYER][MATRIX_ROWS][MATRIX_COLS] = {
   ),*/
 };
 
-const uint8_t PROGMEM ledmap[MY_MAX_LAYER][DRIVER_LED_TOTAL][3] = {
+const uint8_t PROGMEM ledmap[MY_MAX_LAYER + 1][DRIVER_LED_TOTAL][3] = {
   [L_LOWER] = LED_LAYOUT_moonlander(
     ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo       ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,
     ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo       ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,

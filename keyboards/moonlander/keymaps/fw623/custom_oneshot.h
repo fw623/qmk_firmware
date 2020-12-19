@@ -14,7 +14,7 @@ typedef struct cosm_t {
 } cosm_t;
 
 #define NUM_COSM 2
-cosm_t custom_oneshots[NUM_COSM];
+extern cosm_t custom_oneshots[NUM_COSM];
 
 bool handle_cosm (cosm_t *cosm, uint16_t keycode, keyrecord_t *record);
 void set_cosm (cosm_t *cosm);
