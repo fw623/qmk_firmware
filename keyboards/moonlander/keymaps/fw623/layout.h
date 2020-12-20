@@ -46,14 +46,14 @@ enum layer {
 /* ========== LAYOUT definitions ========== */
 enum custom_keycodes {
   RGB_SLD = ML_SAFE_RANGE,
-  ST_CIRC,
-  ST_GRVE,
-  ST_RPTU,
-  ST_RPTD,
-  ST_RPTL,
-  ST_RPTR,
-  ST_SFT,
-  ST_SYMB,
+  ST_CIRC, // circumflex (not dead)
+  ST_GRVE, // grave accent (not dead)
+  ST_RPTU, // repeat UP
+  ST_RPTD, // repeat DOWN
+  ST_RPTL, // repeat LEFT
+  ST_RPTR, // repeat RIGHT
+  ST_SFT,  // custom oneshot shift
+  ST_SYMB, // custom oneshot symbol layer
 };
 
 #define TG_GAME TG(L_GAMING)
