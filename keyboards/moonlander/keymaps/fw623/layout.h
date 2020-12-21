@@ -19,8 +19,6 @@
 #include "keymap_german.h"
 #include "moonlander.h"
 
-#define REGISTER_TAP(keycode) { register_code(keycode); unregister_code(keycode); }
-#define REGISTER_TAP16(keycode) { register_code16(keycode); unregister_code16(keycode); }
 #define MO_USER(layer) { if (record->event.pressed) { layer_on(L_SHCUT); } else { layer_off(L_SHCUT); } }
 
 /* ========== LAYER definitions ========== */

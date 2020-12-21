@@ -63,9 +63,9 @@ void rgb_matrix_indicators_user(void) {
 }
 
 /* ========== LAYOUT stuff ========== */
-static void repeat(keyrecord_t *record, int code, int times) {
+static void repeat(keyrecord_t *record, uint8_t code, int times) {
   if (record->event.pressed) {
-    for (int i = 0; i < times - 1; i++) { REGISTER_TAP(code); }
+    for (int i = 0; i < times - 1; i++) { tap_code(code); }
     register_code(code);
   } else {
     unregister_code(code);
@@ -94,8 +94,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case ST_GRVE:
       if (record->event.pressed) {
-        REGISTER_TAP16(DE_GRV);
-        REGISTER_TAP(KC_SPC);
+        tap_code16(DE_GRV);
+        tap_code(KC_SPC);
       }
       break;
     case ST_RPTU:
@@ -123,7 +123,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case TG(L_GAMING):
       // unset CAPS on L_GAMING toggle
       if (!record->event.pressed && host_keyboard_led_state().caps_lock) {
-        REGISTER_TAP(KC_CAPS);
+        tap_code(KC_CAPS);
       }
       return true;
     case RGB_SLD:
