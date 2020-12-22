@@ -24,7 +24,8 @@
 /* ========== LAYER definitions ========== */
 enum layer {
   L_LOWER,
-  L_FN,
+  L_EMACS,
+  // L_FN,
   L_UPPER,
   L_SHCUT,
   L_NAV,
@@ -52,8 +53,11 @@ enum custom_keycodes {
   ST_RPTR, // repeat RIGHT
   ST_SFT,  // custom oneshot shift
   ST_SYMB, // custom oneshot symbol layer
+  ST_C_X,  // Ctrl+X on press, holds Ctrl until released
+  ST_M_X,  // Alt+X on press, holds Alt until released
 };
 
+#define TG_EMAC TG(L_EMACS)
 #define TG_GAME TG(L_GAMING)
 #define TG_QWTZ TG(L_QWERTZ)
 #define TG_CUBE TG(L_CUBING)

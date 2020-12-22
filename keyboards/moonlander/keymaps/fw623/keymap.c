@@ -49,6 +49,9 @@ void set_layer_color(int layer) {
     rgb_matrix_set_color(19, PINK_RGB);
     rgb_matrix_set_color(35, PINK_RGB);
   }
+  if (IS_LAYER_ON(L_EMACS)) {
+    rgb_matrix_set_color(1, PINK_RGB);
+  }
 }
 
 void rgb_matrix_indicators_user(void) {
@@ -113,7 +116,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case CTL_ESC:
     case KC_LALT:
     case KC_LGUI:
-      MO_USER(L_SHCUT);
+      if (!IS_LAYER_ON(L_EMACS)) { MO_USER(L_SHCUT); }
       // we need to call this here to get layer LEDs activated (for whatever reason)
       return process_action_kb(record);
     case KC_RSFT:
@@ -126,6 +129,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         tap_code(KC_CAPS);
       }
       return true;
+    case TG_EMAC:
+      if (record->event.pressed) {
+        layer_off(L_SHCUT);
+      }
+      // we need to call this here to get layer LEDs activated (for whatever reason)
+      return process_action_kb(record);
+    case ST_C_X:
+      if (record->event.pressed) {
+        register_code(KC_LCTRL);
+        tap_code(KC_X);
+      } else {
+        unregister_code(KC_LCTRL);
+      }
+      return false;
+    case ST_M_X:
+      if (record->event.pressed) {
+        register_code(KC_LALT);
+        tap_code(KC_X);
+      } else {
+        unregister_code(KC_LALT);
+      }
+      return false;
     case RGB_SLD:
       if (record->event.pressed) { rgblight_mode(1); }
       return false;
