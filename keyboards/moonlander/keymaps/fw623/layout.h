@@ -24,8 +24,7 @@
 /* ========== LAYER definitions ========== */
 enum layer {
   L_LOWER,
-  L_EMACS,
-  // L_FN,
+  L_FN,
   L_UPPER,
   L_SHCUT,
   L_NAV,
@@ -57,13 +56,14 @@ enum custom_keycodes {
   ST_M_X,  // Alt+X on press, holds Alt until released
 };
 
-#define TG_EMAC TG(L_EMACS)
 #define TG_GAME TG(L_GAMING)
 #define TG_QWTZ TG(L_QWERTZ)
 #define TG_CUBE TG(L_CUBING)
 #define TT_NAV  TT(L_NAV)
-#define CTL_ESC LCTL_T(KC_ESC)
+#define ALT_ENT LALT_T(KC_ENTER)
+#define CTL_ESC LCTL_T(KC_ESCAPE)
 #define NUMCAPS LT(L_NUM, KC_CAPS)
+#define MO_FN   MO(L_FN)
 
 extern const uint16_t PROGMEM keymaps[MY_MAX_LAYER + 1][MATRIX_ROWS][MATRIX_COLS];
 

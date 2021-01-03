@@ -19,29 +19,21 @@
 // clang-format off
 const uint16_t PROGMEM keymaps [MY_MAX_LAYER + 1][MATRIX_ROWS][MATRIX_COLS] = {
   [L_LOWER] = LAYOUT_moonlander(
-    TG_GAME ,KC_F1   ,KC_F2   ,KC_F3   ,KC_F4   ,KC_F5   ,KC_F11        ,KC_F12  ,KC_F6   ,KC_F7   ,KC_F8   ,KC_F9   ,KC_F10  ,TG_QWTZ ,
-    TG_EMAC ,KC_ENT  ,KC_DOT  ,KC_O    ,KC_U    ,DE_AE   ,_______       ,_______ ,KC_Q    ,KC_G    ,KC_C    ,KC_L    ,_______ ,TG_CUBE ,
+    TG_GAME ,KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,KC_6          ,KC_5    ,KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,TG_QWTZ ,
+    _______ ,_______ ,KC_DOT  ,KC_O    ,KC_U    ,DE_AE   ,_______       ,_______ ,KC_Q    ,KC_G    ,KC_C    ,KC_L    ,_______ ,TG_CUBE ,
     KC_TAB  ,KC_K    ,KC_A    ,KC_E    ,KC_I    ,DE_Y    ,DE_OE         ,_______ ,KC_B    ,KC_T    ,KC_R    ,KC_N    ,KC_F    ,KC_J    ,
     KC_BSPC ,KC_H    ,DE_Z    ,KC_X    ,KC_COMM ,DE_UE                           ,KC_P    ,KC_D    ,KC_W    ,KC_M    ,KC_S    ,KC_V    ,
-    _______ ,KC_DEL  ,_______ ,NUMCAPS ,KC_SPC           ,KC_RSFT       ,_______          ,ST_SFT  ,TT_NAV  ,_______ ,DE_SS   ,_______ ,
-                                        CTL_ESC ,KC_LALT ,KC_LGUI       ,_______ ,_______ ,ST_SYMB
+    _______ ,KC_DEL  ,_______ ,NUMCAPS ,KC_SPC           ,KC_LSFT       ,KC_LSFT          ,ST_SFT  ,ST_SYMB ,TT_NAV  ,DE_SS   ,_______ ,
+                                        ALT_ENT ,ST_M_X  ,KC_LGUI       ,MO_FN   ,ST_C_X  ,CTL_ESC
   ),
-  [L_EMACS] = LAYOUT_moonlander(
-    _______ ,KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,KC_6          ,KC_5    ,KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,_______ ,
-    _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______       ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
-    _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______       ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
-    _______ ,_______ ,_______ ,_______ ,_______ ,_______                         ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
-    _______ ,_______ ,_______ ,_______ ,_______          ,KC_LSFT       ,KC_LSFT          ,_______ ,ST_SYMB ,_______ ,_______ ,_______ ,
-                                        _______ ,ST_C_X  ,_______       ,_______ ,ST_M_X  ,KC_LALT
-  ),
-  /*[L_FN] = LAYOUT_moonlander(
+  [L_FN] = LAYOUT_moonlander(
     _______ ,KC_F1   ,KC_F2   ,KC_F3   ,KC_F4   ,KC_F5   ,KC_F11        ,KC_F12  ,KC_F6   ,KC_F7   ,KC_F8   ,KC_F9   ,KC_F10  ,_______ ,
     _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______       ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
     _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______       ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
     _______ ,_______ ,_______ ,_______ ,_______ ,_______                         ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
     _______ ,_______ ,_______ ,_______ ,_______          ,_______       ,_______          ,_______ ,_______ ,_______ ,_______ ,_______ ,
                                         _______ ,_______ ,_______       ,_______ ,_______ ,_______
-  ),*/
+  ),
   [L_UPPER] = LAYOUT_moonlander(
     _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______       ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
     _______ ,_______ ,DE_QUOT ,_______ ,_______ ,_______ ,_______       ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
@@ -58,20 +50,20 @@ const uint16_t PROGMEM keymaps [MY_MAX_LAYER + 1][MATRIX_ROWS][MATRIX_COLS] = {
     _______ ,_______ ,_______ ,_______ ,_______          ,_______       ,_______          ,_______ ,_______ ,_______ ,KC_MINS ,_______ ,
                                         _______ ,_______ ,_______       ,_______ ,_______ ,_______
   ),
-  [L_SYMBOL] = LAYOUT_moonlander(
-    _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______       ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
-    _______ ,_______ ,DE_COLN ,DE_EXLM ,ST_CIRC ,XXXXXXX ,_______       ,_______ ,XXXXXXX ,DE_EURO ,DE_HASH ,DE_MORE ,_______ ,_______ ,
-    _______ ,ST_GRVE ,DE_EQL  ,DE_MINS ,DE_SLSH ,DE_ASTR ,XXXXXXX       ,_______ ,DE_AMPR ,DE_LCBR ,DE_LPRN ,DE_RPRN ,DE_PLUS ,DE_PIPE ,
-    _______ ,DE_BSLS ,DE_SCLN ,DE_QST  ,DE_UNDS ,DE_AT                           ,DE_LESS ,DE_DLR  ,DE_LBRC ,DE_RBRC ,DE_RCBR ,DE_PERC ,
-    _______ ,_______ ,_______ ,_______ ,_______          ,_______       ,_______          ,_______ ,_______ ,_______ ,DE_TILD ,_______ ,
-                                        _______ ,_______ ,_______       ,_______ ,_______ ,_______
-  ),
   [L_NAV] = LAYOUT_moonlander(
     _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______       ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
     _______ ,_______ ,KC_BTN3 ,KC_MS_U ,XXXXXXX ,XXXXXXX ,_______       ,_______ ,XXXXXXX ,ST_RPTL ,KC_UP   ,ST_RPTR ,_______ ,_______ ,
     _______ ,KC_BTN2 ,KC_MS_L ,KC_MS_D ,KC_MS_R ,XXXXXXX ,XXXXXXX       ,_______ ,KC_HOME ,KC_LEFT ,KC_DOWN ,KC_RGHT ,XXXXXXX ,XXXXXXX ,
     _______ ,KC_BTN1 ,KC_WH_U ,KC_RSFT ,KC_WH_D ,XXXXXXX                         ,XXXXXXX ,ST_RPTU ,KC_BTN3 ,ST_RPTD ,KC_END  ,XXXXXXX ,
     _______ ,_______ ,_______ ,_______ ,_______          ,_______       ,_______          ,_______ ,_______ ,_______ ,XXXXXXX ,_______ ,
+                                        _______ ,_______ ,_______       ,_______ ,_______ ,_______
+  ),
+  [L_SYMBOL] = LAYOUT_moonlander(
+    _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______       ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
+    _______ ,_______ ,DE_COLN ,DE_EXLM ,ST_CIRC ,XXXXXXX ,_______       ,_______ ,XXXXXXX ,DE_EURO ,DE_HASH ,DE_MORE ,_______ ,_______ ,
+    _______ ,ST_GRVE ,DE_EQL  ,DE_MINS ,DE_SLSH ,DE_ASTR ,XXXXXXX       ,_______ ,DE_AMPR ,DE_LCBR ,DE_LPRN ,DE_RPRN ,DE_PLUS ,DE_PIPE ,
+    _______ ,DE_BSLS ,DE_SCLN ,DE_QST  ,DE_UNDS ,DE_AT                           ,DE_LESS ,DE_DLR  ,DE_LBRC ,DE_RBRC ,DE_RCBR ,DE_PERC ,
+    _______ ,_______ ,_______ ,_______ ,_______          ,_______       ,_______          ,_______ ,_______ ,_______ ,DE_TILD ,_______ ,
                                         _______ ,_______ ,_______       ,_______ ,_______ ,_______
   ),
   [L_NUM] = LAYOUT_moonlander(
@@ -127,7 +119,6 @@ const uint16_t PROGMEM keymaps [MY_MAX_LAYER + 1][MATRIX_ROWS][MATRIX_COLS] = {
 
 const uint8_t PROGMEM ledmap[MY_MAX_LAYER + 1][DRIVER_LED_TOTAL][3] = {
   [L_LOWER] = LEDS_HOMEROW,
-  [L_EMACS] = LEDS_HOMEROW,
   [L_UPPER] = LEDS_HOMEROW,
   [L_SHCUT] = LEDS_HOMEROW,
   [L_SYMBOL] = LEDS_HOMEROW,

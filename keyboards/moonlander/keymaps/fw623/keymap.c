@@ -49,9 +49,6 @@ void set_layer_color(int layer) {
     rgb_matrix_set_color(19, PINK_RGB);
     rgb_matrix_set_color(35, PINK_RGB);
   }
-  if (IS_LAYER_ON(L_EMACS)) {
-    rgb_matrix_set_color(1, PINK_RGB);
-  }
 }
 
 void rgb_matrix_indicators_user(void) {
@@ -113,12 +110,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case ST_RPTR:
       repeat(record, KC_RIGHT, 12);
       break;
-    case CTL_ESC:
+    /* case CTL_ENT:
     case KC_LALT:
     case KC_LGUI:
       if (!IS_LAYER_ON(L_EMACS)) { MO_USER(L_SHCUT); }
       // we need to call this here to get layer LEDs activated (for whatever reason)
-      return process_action_kb(record);
+      return process_action_kb(record); */
     case KC_RSFT:
       MO_USER(L_UPPER);
       // we need to call this here to get layer LEDs activated (for whatever reason)
@@ -129,12 +126,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         tap_code(KC_CAPS);
       }
       return true;
-    case TG_EMAC:
+    /* case TG_EMAC:
       if (record->event.pressed) {
         layer_off(L_SHCUT);
       }
       // we need to call this here to get layer LEDs activated (for whatever reason)
-      return process_action_kb(record);
+      return process_action_kb(record); */
     case ST_C_X:
       if (record->event.pressed) {
         register_code(KC_LCTRL);
