@@ -60,8 +60,8 @@ enum custom_keycodes {
 #define TG_QWTZ TG(L_QWERTZ)
 #define TG_CUBE TG(L_CUBING)
 #define TT_NAV  TT(L_NAV)
-#define ALT_ENT LALT_T(KC_ENTER)
-#define CTL_ESC LCTL_T(KC_ESCAPE)
+#define CTL_ENT LCTL_T(KC_ENTER)
+#define ALT_ESC LALT_T(KC_ESCAPE)
 #define NUMCAPS LT(L_NUM, KC_CAPS)
 #define MO_FN   MO(L_FN)
 

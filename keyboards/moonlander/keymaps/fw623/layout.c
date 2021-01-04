@@ -24,7 +24,7 @@ const uint16_t PROGMEM keymaps [MY_MAX_LAYER + 1][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB  ,KC_K    ,KC_A    ,KC_E    ,KC_I    ,DE_Y    ,DE_OE         ,_______ ,KC_B    ,KC_T    ,KC_R    ,KC_N    ,KC_F    ,KC_J    ,
     KC_BSPC ,KC_H    ,DE_Z    ,KC_X    ,KC_COMM ,DE_UE                           ,KC_P    ,KC_D    ,KC_W    ,KC_M    ,KC_S    ,KC_V    ,
     _______ ,KC_DEL  ,_______ ,NUMCAPS ,KC_SPC           ,KC_LSFT       ,KC_LSFT          ,ST_SFT  ,ST_SYMB ,TT_NAV  ,DE_SS   ,_______ ,
-                                        ALT_ENT ,ST_M_X  ,KC_LGUI       ,MO_FN   ,ST_C_X  ,CTL_ESC
+                                        CTL_ENT ,ST_C_X  ,KC_LGUI       ,MO_FN   ,ST_M_X  ,ALT_ESC
   ),
   [L_FN] = LAYOUT_moonlander(
     _______ ,KC_F1   ,KC_F2   ,KC_F3   ,KC_F4   ,KC_F5   ,KC_F11        ,KC_F12  ,KC_F6   ,KC_F7   ,KC_F8   ,KC_F9   ,KC_F10  ,_______ ,
@@ -69,8 +69,8 @@ const uint16_t PROGMEM keymaps [MY_MAX_LAYER + 1][MATRIX_ROWS][MATRIX_COLS] = {
   [L_NUM] = LAYOUT_moonlander(
     _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______       ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
     _______ ,_______ ,DE_DOT  ,XXXXXXX ,ST_CIRC ,XXXXXXX ,_______       ,_______ ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,_______ ,
-    _______ ,DE_MINS ,KC_4    ,KC_2    ,KC_0    ,KC_8    ,XXXXXXX       ,_______ ,KC_9    ,KC_1    ,KC_3    ,KC_5    ,DE_PLUS ,XXXXXXX ,
-    _______ ,KC_6    ,DE_COLN ,DE_SLSH ,DE_COMM ,XXXXXXX                         ,XXXXXXX ,DE_ASTR ,DE_LPRN ,DE_RPRN ,KC_7    ,XXXXXXX ,
+    _______ ,DE_MINS ,KC_4    ,KC_2    ,KC_0    ,DE_ASTR ,XXXXXXX       ,_______ ,DE_SLSH ,KC_1    ,KC_3    ,KC_5    ,DE_PLUS ,XXXXXXX ,
+    _______ ,KC_6    ,KC_8    ,DE_COLN ,DE_COMM ,XXXXXXX                         ,XXXXXXX ,DE_LPRN ,DE_RPRN ,KC_9    ,KC_7    ,XXXXXXX ,
     _______ ,_______ ,_______ ,_______ ,_______          ,_______       ,_______          ,_______ ,_______ ,_______ ,XXXXXXX ,_______ ,
                                         _______ ,_______ ,_______       ,_______ ,_______ ,_______
   ),
