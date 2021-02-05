@@ -79,4 +79,8 @@ __pycache__
 # Allow to exist but don't include it in the repo
 user_song_list.h
 
+# language server things
+compile_commands.json
 .ccls-cache/
+.clangd/
+.cache
