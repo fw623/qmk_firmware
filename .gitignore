@@ -50,14 +50,15 @@ doxygen/
 .browse.VC.db*
 *.stackdump
 # Let these ones be user specific, since we have so many different configurations
-.vscode/c_cpp_properties.json
-.vscode/launch.json
-.vscode/tasks.json
-.vscode/last.sql
-.vscode/temp.sql
-.vscode/ipch/
+**/.vscode/c_cpp_properties.json
+**/.vscode/launch.json
+**/.vscode/tasks.json
+**/.vscode/last.sql
+**/.vscode/temp.sql
+**/.vscode/ipch/
 .stfolder
 .tags
+
 
 # ignore image files
 *.png
@@ -77,3 +78,5 @@ __pycache__
 
 # Allow to exist but don't include it in the repo
 user_song_list.h
+
+.ccls-cache/

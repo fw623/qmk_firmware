@@ -17,6 +17,7 @@
 #pragma once
 
 #include "keymap_german.h"
+/* #include "../../../../quantum/keymap_extras/keymap_german.h" */
 #include "moonlander.h"
 
 #define MO_USER(layer) { if (record->event.pressed) { layer_on(L_SHCUT); } else { layer_off(L_SHCUT); } }
@@ -24,12 +25,12 @@
 /* ========== LAYER definitions ========== */
 enum layer {
   L_LOWER,
-  L_FN,
   L_UPPER,
   L_SHCUT,
   L_NAV,
-  L_SYMBOL,
   L_NUM,
+  L_FN,
+  L_SYMBOL,
   L_MOUSE,
   // L_GREEK_L,
   // L_GREEK_U,
@@ -52,6 +53,7 @@ enum custom_keycodes {
   ST_RPTR, // repeat RIGHT
   ST_SFT,  // custom oneshot shift
   ST_SYMB, // custom oneshot symbol layer
+  ST_NUM,  // custom oneshot number layer
   ST_C_X,  // Ctrl+X on press, holds Ctrl until released
   ST_M_X,  // Alt+X on press, holds Alt until released
 };
@@ -61,7 +63,9 @@ enum custom_keycodes {
 #define TG_CUBE TG(L_CUBING)
 #define TT_NAV  TT(L_NAV)
 #define CTL_ENT LCTL_T(KC_ENTER)
+#define CTL_ESC LCTL_T(KC_ESCAPE)
 #define ALT_ESC LALT_T(KC_ESCAPE)
+#define ALT_ENT LALT_T(KC_ENTER)
 #define NUMCAPS LT(L_NUM, KC_CAPS)
 #define MO_FN   MO(L_FN)
 

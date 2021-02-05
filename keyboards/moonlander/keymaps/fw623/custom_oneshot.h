@@ -26,10 +26,11 @@ typedef struct cosm_t {
   uint16_t released_at;
   bool active;
   bool pressed;
+  bool locked;
   bool interrupted;
 } cosm_t;
 
-#define NUM_COSM 2
+#define NUM_COSM 3
 extern cosm_t custom_oneshots[NUM_COSM];
 
 bool handle_cosm (cosm_t *cosm, uint16_t keycode, keyrecord_t *record);

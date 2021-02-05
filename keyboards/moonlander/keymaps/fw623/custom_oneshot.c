@@ -18,9 +18,12 @@
 #include "layout.h"
 #include "config.h"
 
+// TODO: proper handling of lockmode
+
 cosm_t custom_oneshots[NUM_COSM] = {
-  { ST_SFT, L_UPPER, KC_RSFT, 0, false, false, false },
-  { ST_SYMB, L_SYMBOL, KC_NO, 0, false, false, false },
+  { ST_SFT,  L_UPPER,  KC_RSFT, 0, false, false, false, false },
+  { ST_SYMB, L_SYMBOL, KC_NO,   0, false, false, false, false },
+  { ST_NUM,  L_NUM,    KC_NO,   0, false, false, false, false },
 };
 
 void reset_cosm (cosm_t *cosm) {
@@ -42,13 +45,13 @@ void set_cosm (cosm_t *cosm) {
 }
 
 void timeout_cosm (cosm_t *cosm) {
-  if (cosm->active && !cosm->pressed && timer_elapsed(cosm->released_at) > ONESHOT_TIMEOUT) {
+  if (cosm->active && !cosm->pressed && !cosm->locked && timer_elapsed(cosm->released_at) > ONESHOT_TIMEOUT) {
     reset_cosm(cosm);
   }
 }
 
 bool handle_cosm (cosm_t *cosm, uint16_t keycode, keyrecord_t *record) {
-  if (cosm->active && record->event.pressed && keycode != cosm->trigger) {
+  if (cosm->active && record->event.pressed && keycode != cosm->trigger && !cosm->locked) {
     // handle interrupts
     if (!cosm->pressed && cosm->interrupted) { reset_cosm(cosm); }
     cosm->interrupted = true;
@@ -57,7 +60,7 @@ bool handle_cosm (cosm_t *cosm, uint16_t keycode, keyrecord_t *record) {
     cosm->pressed = record->event.pressed;
     if (record->event.pressed) {
       if (cosm->active && !cosm->interrupted) {
-        reset_cosm(cosm);
+        cosm->locked = !cosm->locked;
       } else {
         set_cosm(cosm);
       }
