@@ -24,7 +24,7 @@ const uint16_t PROGMEM keymaps [MY_MAX_LAYER + 1][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB  ,KC_K    ,KC_A    ,KC_E    ,KC_I    ,DE_Y    ,DE_OE         ,_______ ,KC_B    ,KC_T    ,KC_R    ,KC_N    ,KC_F    ,KC_J    ,
     KC_BSPC ,KC_H    ,DE_Z    ,KC_X    ,KC_COMM ,DE_UE                           ,KC_P    ,KC_D    ,KC_W    ,KC_M    ,KC_S    ,KC_V    ,
     _______ ,KC_DEL  ,_______ ,ST_NUM  ,KC_SPC           ,KC_LSFT       ,KC_LSFT          ,ST_SFT  ,ST_SYMB ,TT_NAV  ,DE_SS   ,_______ ,
-                                        CTL_ESC ,ST_C_X  ,KC_LGUI       ,MO_FN   ,ST_M_X  ,ALT_ENT
+                                        CTL_ESC ,ST_C_X  ,KC_SPC        ,MO_FN   ,KC_LGUI ,ALT_ENT
   ),
   [L_UPPER] = LAYOUT_moonlander(
     _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______       ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps [MY_MAX_LAYER + 1][MATRIX_ROWS][MATRIX_COLS] = {
                                         _______ ,_______ ,_______       ,_______ ,_______ ,_______
   ),
   [L_FN] = LAYOUT_moonlander(
-    _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______       ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
+    _______ ,KC_F1   ,KC_F2   ,KC_F3   ,KC_F4   ,KC_F5   ,KC_F11        ,KC_F12  ,KC_F6   ,KC_F7   ,KC_F8   ,KC_F9   ,KC_F10  ,_______ ,
     _______ ,_______ ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,_______       ,_______ ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,_______ ,_______ ,
     _______ ,XXXXXXX ,KC_F2   ,KC_F3   ,KC_F4   ,KC_F5   ,XXXXXXX       ,_______ ,KC_F6   ,KC_F7   ,KC_F8   ,KC_F9   ,XXXXXXX ,XXXXXXX ,
     _______ ,KC_F1   ,XXXXXXX ,XXXXXXX ,KC_F11  ,XXXXXXX                         ,XXXXXXX ,KC_F12  ,XXXXXXX ,XXXXXXX ,KC_F10  ,XXXXXXX ,

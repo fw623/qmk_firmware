@@ -17,7 +17,6 @@
 #pragma once
 
 #include "keymap_german.h"
-/* #include "../../../../quantum/keymap_extras/keymap_german.h" */
 #include "moonlander.h"
 
 #define MO_USER(layer) { if (record->event.pressed) { layer_on(L_SHCUT); } else { layer_off(L_SHCUT); } }
