@@ -73,18 +73,14 @@ static void repeat(keyrecord_t *record, uint8_t code, int times) {
 }
 
 void matrix_scan_user(void) {
-  // handle timeout for Custom One Shot Modifiers (Layers)
-  for (int i = 0; i < NUM_COSM; i++) { timeout_cosm(custom_oneshots + i); }
+  timeout_cosms(); // custom oneshot modifiers
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   prev_keycode = curr_keycode;
   curr_keycode = keycode;
 
-  // handle Custom One Shot Modifiers (Layers)
-  for (int i = 0; i < NUM_COSM; i++) {
-    if (!handle_cosm(custom_oneshots + i, keycode, record)) { return false; }
-  }
+  if (!handle_cosms(keycode, record)) { return false; } // custom oneshot modifiers
 
   switch (keycode) {
     case ST_CIRC:

@@ -26,50 +26,71 @@ cosm_t custom_oneshots[NUM_COSM] = {
   { ST_NUM,  L_NUM,    KC_NO,   0, false, false, false, false },
 };
 
-void reset_cosm (cosm_t *cosm) {
-  if (cosm->keycode != KC_NO) { unregister_code(cosm->keycode); }
-  if (cosm->layer >= 0) { layer_off(cosm->layer); }
-  cosm->active = false;
-}
-
-void set_cosm (cosm_t *cosm) {
-  if (cosm->layer >= 0) { layer_on(cosm->layer); }
-  if (cosm->keycode != KC_NO) { register_code(cosm->keycode); }
-  cosm->interrupted = false;
-  cosm->active = true;
-
-  // reset others
+bool is_cosm_key (uint16_t keycode) {
   for (int i = 0; i < NUM_COSM; i++) {
-    if (custom_oneshots + i != cosm) { reset_cosm(custom_oneshots + i); }
+    if (custom_oneshots[i].trigger == keycode) { return true; }
   }
+  return false;
 }
 
 void timeout_cosm (cosm_t *cosm) {
-  if (cosm->active && !cosm->pressed && !cosm->locked && timer_elapsed(cosm->released_at) > ONESHOT_TIMEOUT) {
-    reset_cosm(cosm);
+  if (cosm->oneshot_active && timer_elapsed(cosm->released_at) > COSM_TIMEOUT) {
+    cosm->oneshot_active = false;
+  }
+}
+
+void timeout_cosms (void) {
+  for (int i = 0; i < NUM_COSM; i++) {
+    timeout_cosm(custom_oneshots + i);
   }
 }
 
 bool handle_cosm (cosm_t *cosm, uint16_t keycode, keyrecord_t *record) {
-  if (cosm->active && record->event.pressed && keycode != cosm->trigger && !cosm->locked) {
-    // handle interrupts
-    if (!cosm->pressed && cosm->interrupted) { reset_cosm(cosm); }
-    cosm->interrupted = true;
-  } else if (keycode == cosm->trigger) {
-    // handle this key
-    cosm->pressed = record->event.pressed;
-    if (record->event.pressed) {
-      if (cosm->active && !cosm->interrupted) {
-        cosm->locked = !cosm->locked;
-      } else {
-        set_cosm(cosm);
-      }
-    } else {
-      cosm->released_at = timer_read();
-      if (cosm->interrupted) { reset_cosm(cosm); }
-    }
-    return false;
-  }
+  if (keycode == cosm->trigger) { // cosm key
+    if (record->event.pressed) { // pressed
+      cosm->pressed = true;
+      cosm->interrupted = false;
+      cosm->oneshot_active = false;
+      cosm->locked = false;
 
+      if (cosm->layer >= 0) { layer_on(cosm->layer); }
+      if (cosm->keycode != KC_NO) { register_code(cosm->keycode); }
+      
+    } else { // released
+      cosm->pressed = false;
+      cosm->released_at = timer_read();
+      
+      if (cosm->interrupted) { // interrupted ==> reset unset layer and keycode
+	if (cosm->layer >= 0) { layer_off(cosm->layer); }
+	if (cosm->keycode != KC_NO) { unregister_code(cosm->keycode); }
+      } else { // not interrupted ==> activate oneshot behaviour
+	cosm->oneshot_active = true;
+      }
+    }
+
+    return false;
+
+    
+  } else { // other key
+    if (record->event.pressed) {
+      if (cosm->pressed) {
+	cosm->interrupted = true;
+      } else if (cosm->oneshot_active) {
+	cosm->oneshot_active = false;
+      } else {
+	if (cosm->layer >= 0) { layer_off(cosm->layer); }
+	if (cosm->keycode != KC_NO) { unregister_code(cosm->keycode); }
+      }
+    }
+
+    return true;
+  }
+}
+
+bool handle_cosms (uint16_t keycode, keyrecord_t *record) {
+  for (int i = 0; i < NUM_COSM; i++) {
+    if (!handle_cosm(custom_oneshots + i, keycode, record)) { return false; }
+  }
   return true;
 }
+
