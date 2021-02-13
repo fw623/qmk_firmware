@@ -31,18 +31,6 @@ static bool is_cosm_key (uint16_t keycode) {
   return false;
 }
 
-static void timeout_cosm (cosm_t *cosm) {
-  if (cosm->oneshot_active && timer_elapsed(cosm->released_at) > COSM_TIMEOUT) {
-    cosm->oneshot_active = false;
-  }
-}
-
-void timeout_cosms (void) {
-  for (int i = 0; i < NUM_COSM; i++) {
-    timeout_cosm(custom_oneshots + i);
-  }
-}
-
 static inline void set_cosm (cosm_t *cosm) {
   cosm->active = true;
   if (cosm->layer >= 0) { layer_on(cosm->layer); }
@@ -53,6 +41,24 @@ static inline void unset_cosm (cosm_t *cosm) {
   cosm->active = false;
   if (cosm->layer >= 0) { layer_off(cosm->layer); }
   if (cosm->keycode != KC_NO) { unregister_code(cosm->keycode); }
+}
+
+static void timeout_cosm (cosm_t *cosm) {
+  if (cosm->oneshot_active && timer_elapsed(cosm->released_at) > COSM_TIMEOUT) {
+    cosm->oneshot_active = false;
+    // unset/set according to locked state
+    if (!cosm->locked) {
+      if (cosm->active) { unset_cosm(cosm); }
+    } else {
+      if (!cosm->active) { set_cosm(cosm); }
+    }
+  }
+}
+
+void timeout_cosms (void) {
+  for (int i = 0; i < NUM_COSM; i++) {
+    timeout_cosm(custom_oneshots + i);
+  }
 }
 
 static void handle_current_cosm_key (cosm_t *cosm, keyrecord_t *record) {
@@ -85,14 +91,15 @@ static void handle_noncosm_key (cosm_t *cosm, keyrecord_t *record) {
       cosm->interrupted = true;
     } else if (cosm->oneshot_active) { // currently oneshot active ==> oneshot inactive
       cosm->oneshot_active = false;
-    } else { // neither pressed nor oneshot active ==> unset
+    } else { // neither pressed nor oneshot active ==> unset (or set when locked)
       if (!cosm->locked) {
-	if (cosm->active) { unset_cosm(cosm);; }
+	if (cosm->active) { unset_cosm(cosm); }
       } else {
-	if (!cosm->active) { set_cosm(cosm);; }
+	if (!cosm->active) { set_cosm(cosm); }
       }
     }
-  }  
+  }
+  // ignore release events
 }
 
 static bool handle_cosm (cosm_t *cosm, uint16_t keycode, keyrecord_t *record) {
