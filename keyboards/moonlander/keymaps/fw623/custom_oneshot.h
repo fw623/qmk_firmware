@@ -27,6 +27,7 @@ typedef struct cosm_t {
   const uint16_t trigger;
   const int layer; // ignored iff < 0
   const uint16_t keycode; // ignored iff == KC_NO
+  bool active; // true iff layer and keycode are active
   uint16_t released_at;
   bool pressed;
   bool interrupted;
