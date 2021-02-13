@@ -18,8 +18,8 @@
 
 #include "quantum.h"
 
-// assumption: COSM_LOCK_TIMEOUT <= COSM_TIMEOUT
 #define COSM_TIMEOUT ONESHOT_TIMEOUT
+// note: actual lock timeout = min(COSM_LOCK_TIMEOUT, COSM_TIMEOUT)
 #define COSM_LOCK_TIMEOUT 300
 
 // Custom One Shot Modifier (or Layer)
