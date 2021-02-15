@@ -67,6 +67,7 @@ enum custom_keycodes {
 #define ALT_ENT LALT_T(KC_ENTER)
 #define NUMCAPS LT(L_NUM, KC_CAPS)
 #define MO_FN   MO(L_FN)
+#define FN_SPC  LT(L_FN, KC_SPC)
 
 extern const uint16_t PROGMEM keymaps[MY_MAX_LAYER + 1][MATRIX_ROWS][MATRIX_COLS];
 
