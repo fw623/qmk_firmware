@@ -44,6 +44,7 @@ enum layer {
 /* ========== LAYOUT definitions ========== */
 enum custom_keycodes {
   RGB_SLD = ML_SAFE_RANGE,
+  ST_IGN,  // ignored
   ST_CIRC, // circumflex (not dead)
   ST_GRVE, // grave accent (not dead)
   ST_RPTU, // repeat UP
@@ -55,6 +56,7 @@ enum custom_keycodes {
   ST_NUM,  // custom oneshot number layer
   ST_C_X,  // Ctrl+X on press, holds Ctrl until released
   ST_M_X,  // Alt+X on press, holds Alt until released
+  ST_LOCK, // lock currently pressed keys until either `ST_LOCK` is hit again, or locked key is pressed
 };
 
 #define TG_GAME TG(L_GAMING)

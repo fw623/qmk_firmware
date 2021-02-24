@@ -25,6 +25,9 @@ extern bool g_suspend_state;
 extern rgb_config_t rgb_matrix_config;
 static uint16_t prev_keycode = KC_NO, curr_keycode = KC_NO;
 
+static bool locked_matrix [MATRIX_ROWS][MATRIX_COLS]; // keyboard matrix indicating whether key was locked
+static uint8_t locked_layer; // highest active layer at time of locking
+
 /* ========== LED stuff ========== */
 void keyboard_post_init_user(void) {
   rgb_matrix_enable();
@@ -62,7 +65,7 @@ void rgb_matrix_indicators_user(void) {
   }
 }
 
-/* ========== LAYOUT stuff ========== */
+/* ========== LAYOUT custom stuff ========== */
 static void repeat(keyrecord_t *record, uint8_t code, int times) {
   if (record->event.pressed) {
     for (int i = 0; i < times - 1; i++) { tap_code(code); }
@@ -72,6 +75,28 @@ static void repeat(keyrecord_t *record, uint8_t code, int times) {
   }
 }
 
+// lock all currently pressed keys; release all still locked but not pressed keys
+static void activate_custom_lock (void) {
+  for (uint8_t c = 0; c < MATRIX_COLS; c++) {
+    for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
+      // simulate release if it is still locked but should no longer be
+      if (locked_matrix[r][c] && !matrix_is_on(r, c)) {
+	keypos_t sim_keypos = { .col = c, .row = r };
+	uint16_t sim_keycode = keymap_key_to_keycode(locked_layer, sim_keypos);
+	unregister_code16(sim_keycode);
+      }
+      
+      locked_matrix[r][c] = matrix_is_on(r, c);
+    }
+  }
+  
+  // save layer that's ON when locking
+  for (uint8_t l = MY_MAX_LAYER; l >= 0; l--) {
+    if (IS_LAYER_ON(l)) { locked_layer = l; break; }
+  }
+}
+
+/* ========== LAYOUT predefined stuff ========== */
 void matrix_scan_user(void) {
   timeout_cosms(); // custom oneshot modifiers
 }
@@ -82,7 +107,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   if (!handle_cosms(keycode, record)) { return false; } // custom oneshot modifiers
 
+  // swallow release of locked key
+  if (keycode != ST_LOCK && locked_matrix[record->event.key.row][record->event.key.col]) {
+    if (record->event.pressed) {
+      locked_matrix[record->event.key.row][record->event.key.col] = false;
+    }
+    return false;
+  }
+
   switch (keycode) {
+    case ST_LOCK:
+      if (record->event.pressed) { activate_custom_lock(); }
+      break;
     case ST_CIRC:
       if (record->event.pressed) {
         SEND_STRING(SS_TAP(X_GRAVE) SS_TAP(X_SPACE));
