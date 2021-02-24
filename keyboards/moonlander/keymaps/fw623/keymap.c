@@ -23,7 +23,6 @@
 
 extern bool g_suspend_state;
 extern rgb_config_t rgb_matrix_config;
-static uint16_t prev_keycode = KC_NO, curr_keycode = KC_NO;
 
 static bool locked_matrix [MATRIX_ROWS][MATRIX_COLS]; // keyboard matrix indicating whether key was locked
 static uint8_t locked_layer; // highest active layer at time of locking
@@ -102,9 +101,6 @@ void matrix_scan_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  prev_keycode = curr_keycode;
-  curr_keycode = keycode;
-
   if (!handle_cosms(keycode, record)) { return false; } // custom oneshot modifiers
 
   // swallow release of locked key
@@ -142,12 +138,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case ST_RPTR:
       repeat(record, KC_RIGHT, 12);
       break;
-    /* case CTL_ENT:
-    case KC_LALT:
-    case KC_LGUI:
-      if (!IS_LAYER_ON(L_EMACS)) { MO_USER(L_SHCUT); }
-      // we need to call this here to get layer LEDs activated (for whatever reason)
-      return process_action_kb(record); */
     case KC_RSFT:
       MO_USER(L_UPPER);
       // we need to call this here to get layer LEDs activated (for whatever reason)
@@ -158,12 +148,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         tap_code(KC_CAPS);
       }
       return true;
-    /* case TG_EMAC:
-      if (record->event.pressed) {
-        layer_off(L_SHCUT);
-      }
-      // we need to call this here to get layer LEDs activated (for whatever reason)
-      return process_action_kb(record); */
     case ST_C_X:
       if (record->event.pressed) {
         register_code(KC_LCTRL);
