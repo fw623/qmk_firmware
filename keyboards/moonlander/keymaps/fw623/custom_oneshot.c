@@ -24,11 +24,18 @@ cosm_t custom_oneshots[NUM_COSM] = {
   { ST_NUM,  L_NUM,    KC_NO,   false, 0, false, false, false, false },
 };
 
-static bool is_cosm_key (uint16_t keycode) {
-  for (int i = 0; i < NUM_COSM; i++) {
-    if (custom_oneshots[i].trigger == keycode) { return true; }
+#define IGNORE_INTERRUPTS_BY_LEN 9
+uint16_t ignore_interrupts_by[IGNORE_INTERRUPTS_BY_LEN] = {
+  ST_SFT, ST_SYMB, ST_NUM,
+  ST_M_X, ST_C_X,
+  ALT_ENT, ALT_ESC, CTL_ENT, CTL_ESC,
+};
+
+static bool is_interrupting_key (uint16_t keycode) {
+  for (int i = 0; i < IGNORE_INTERRUPTS_BY_LEN; i++) {
+    if (ignore_interrupts_by[i] == keycode) { return false; }
   }
-  return false;
+  return true;
 }
 
 static inline void set_cosm (cosm_t *cosm) {
@@ -85,7 +92,7 @@ static void handle_current_cosm_key (cosm_t *cosm, keyrecord_t *record) {
   }
 }
 
-static void handle_noncosm_key (cosm_t *cosm, keyrecord_t *record) {
+static void handle_interrupting_key (cosm_t *cosm, keyrecord_t *record) {
   if (record->event.pressed) {
     if (cosm->pressed) { // currently pressed ==> interrupted
       cosm->interrupted = true;
@@ -106,8 +113,8 @@ static bool handle_cosm (cosm_t *cosm, uint16_t keycode, keyrecord_t *record) {
   if (keycode == cosm->trigger) { // cosm key
     handle_current_cosm_key(cosm, record);
     return false;
-  } else if (!is_cosm_key(keycode)) {  // other key (non-cosm)
-    handle_noncosm_key(cosm, record);
+  } else if (is_interrupting_key(keycode)) {  // other interrupting key
+    handle_interrupting_key(cosm, record);
   }
   return true;
 }
