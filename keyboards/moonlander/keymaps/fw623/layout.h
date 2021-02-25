@@ -54,6 +54,7 @@ enum custom_keycodes {
   ST_SFT,  // custom oneshot shift
   ST_SYMB, // custom oneshot symbol layer
   ST_NUM,  // custom oneshot number layer
+  ST_FN,   // custom oneshot function key layer
   ST_C_X,  // Ctrl+X on press, holds Ctrl until released
   ST_M_X,  // Alt+X on press, holds Alt until released
   ST_LOCK, // lock currently pressed keys until either `ST_LOCK` is hit again, or locked key is pressed

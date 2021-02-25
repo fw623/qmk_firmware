@@ -35,7 +35,7 @@ typedef struct cosm_t {
   bool locked;
 } cosm_t;
 
-#define NUM_COSM 3
+#define NUM_COSM 4
 extern cosm_t custom_oneshots[NUM_COSM];
 
 bool handle_cosms (uint16_t keycode, keyrecord_t *record);
