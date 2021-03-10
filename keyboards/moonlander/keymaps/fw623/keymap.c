@@ -81,7 +81,7 @@ static void activate_custom_lock (void) {
   for (uint8_t l = MY_MAX_LAYER; l >= 0; l--) {
     if (IS_LAYER_ON(l)) { current_layer = l; break; }
   }
-  
+
   for (uint8_t c = 0; c < MATRIX_COLS; c++) {
     for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
       // simulate release if it is still locked but should no longer be
@@ -135,6 +135,61 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     }
   }
+
+  typedef struct multihold_key_t {
+    const uint16_t keycode;
+    const int release_during_multihold; // ignored iff == KC_NO
+    bool pressed;
+  } multihold_key_t;
+
+  #define MULTIHOLDS_LEN 2
+  typedef struct multihold_t {
+    uint16_t layer;
+    const uint8_t keys_len;
+    multihold_key_t keys[MULTIHOLDS_LEN]; // keycodes assumed to be unique
+  } multihold_t;
+
+  static multihold_t multiholds[MULTIHOLDS_LEN] = {
+    { .layer = L_NUM2, .keys_len = 2, .keys = { { CTL_ESC, KC_NO, false },
+                                                { GUI_ENT, KC_LGUI, false } } },
+    { .layer = L_SYMBOL2, .keys_len = 2, .keys = { { ALT_ENT, KC_NO, false },
+                                                   { GUI_ESC, KC_LGUI, false } } },
+  };
+
+  bool mh_exit = false;
+  for (int i = 0; i < MULTIHOLDS_LEN; i++) {
+    multihold_t *mh = multiholds + i;
+    multihold_key_t *key = NULL;
+    bool were_all_pressed = true, are_all_pressed = true;
+    for (int j = 0; j < mh->keys_len; j++) {
+      if (!mh->keys[j].pressed) { were_all_pressed = false; }
+      if (mh->keys[j].keycode == keycode) {
+	mh->keys[j].pressed = record->event.pressed;
+	key = mh->keys + j;
+      }
+      if (!mh->keys[j].pressed) { are_all_pressed = false; }
+    }
+
+    if (!were_all_pressed && are_all_pressed) {
+      for (int j = 0; j < mh->keys_len; j++) {
+        if (mh->keys[j].release_during_multihold != KC_NO) {
+	  unregister_code16(mh->keys[j].release_during_multihold);
+	}
+      }
+      layer_on(mh->layer);
+    } else if (were_all_pressed && !are_all_pressed) {
+      layer_off(mh->layer);
+      for (int j = 0; j < mh->keys_len; j++) {
+        if (mh->keys[j].release_during_multihold != KC_NO && mh->keys[j].pressed) {
+          register_code16(mh->keys[j].release_during_multihold);
+        }
+      }
+    }
+
+    mh_exit = mh_exit || ((were_all_pressed != are_all_pressed) && key->release_during_multihold != KC_NO);
+  }
+  if (mh_exit) { return false; }
+
 
   switch (keycode) {
     case ST_LOCK:

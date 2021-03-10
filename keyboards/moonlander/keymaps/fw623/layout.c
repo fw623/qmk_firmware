@@ -17,14 +17,32 @@
 #include "layout.h"
 
 // clang-format off
+#define LAYOUT_SYMBOL LAYOUT_moonlander(\
+    _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______       ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,\
+    _______ ,_______ ,DE_COLN ,DE_EXLM ,ST_CIRC ,XXXXXXX ,_______       ,_______ ,XXXXXXX ,DE_EURO ,DE_HASH ,DE_MORE ,_______ ,_______ ,\
+    _______ ,ST_GRVE ,DE_EQL  ,DE_MINS ,DE_SLSH ,DE_ASTR ,XXXXXXX       ,_______ ,DE_AMPR ,DE_LCBR ,DE_LPRN ,DE_RPRN ,DE_PLUS ,DE_PIPE ,\
+    _______ ,DE_BSLS ,DE_SCLN ,DE_QST  ,DE_UNDS ,DE_AT                           ,DE_LESS ,DE_DLR  ,DE_LBRC ,DE_RBRC ,DE_RCBR ,DE_PERC ,\
+    _______ ,_______ ,_______ ,_______ ,_______          ,_______       ,_______          ,_______ ,_______ ,_______ ,DE_TILD ,_______ ,\
+                                        _______ ,_______ ,_______       ,_______ ,_______ ,_______\
+  )
+
+#define LAYOUT_NUM LAYOUT_moonlander(\
+    _______ ,KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,KC_6          ,KC_5    ,KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,_______ ,\
+    _______ ,_______ ,_______ ,XXXXXXX ,XXXXXXX ,XXXXXXX ,_______       ,_______ ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,_______ ,_______ ,\
+    _______ ,XXXXXXX ,KC_3    ,KC_8    ,KC_1    ,XXXXXXX ,XXXXXXX       ,_______ ,XXXXXXX ,KC_0    ,KC_9    ,KC_2    ,XXXXXXX ,XXXXXXX ,\
+    _______ ,KC_4    ,XXXXXXX ,KC_6    ,_______ ,XXXXXXX                         ,XXXXXXX ,KC_SPC  ,KC_7    ,XXXXXXX ,KC_5    ,XXXXXXX ,\
+    _______ ,_______ ,_______ ,_______ ,_______          ,_______       ,_______          ,_______ ,_______ ,_______ ,XXXXXXX ,_______ ,\
+                                        _______ ,_______ ,_______       ,_______ ,_______ ,_______\
+  )
+
 const uint16_t PROGMEM keymaps [MY_MAX_LAYER + 1][MATRIX_ROWS][MATRIX_COLS] = {
   [L_LOWER] = LAYOUT_moonlander(
     TG_GAME ,KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,KC_6          ,KC_5    ,KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,TG_QWTZ ,
     _______ ,_______ ,KC_DOT  ,KC_O    ,KC_U    ,DE_AE   ,_______       ,_______ ,KC_Q    ,KC_G    ,KC_C    ,KC_L    ,_______ ,TG_CUBE ,
     KC_TAB  ,KC_K    ,KC_A    ,KC_E    ,KC_I    ,DE_Y    ,DE_OE         ,_______ ,KC_B    ,KC_T    ,KC_R    ,KC_N    ,KC_F    ,KC_J    ,
     KC_BSPC ,KC_H    ,DE_Z    ,KC_X    ,KC_COMM ,DE_UE                           ,KC_P    ,KC_D    ,KC_W    ,KC_M    ,KC_S    ,KC_V    ,
-    _______ ,KC_DEL  ,ST_FN   ,ST_NUM  ,KC_SPC           ,KC_LSFT       ,KC_LSFT          ,ST_SFT  ,ST_SYMB ,TT_NAV  ,DE_SS   ,_______ ,
-                                        CTL_ESC ,ST_C_X  ,KC_SPC        ,FN_SPC  ,KC_LGUI ,ALT_ENT
+    _______ ,KC_DEL  ,TT_FN   ,TT_NUM  ,KC_SPC           ,KC_LSFT       ,KC_LSFT          ,ST_SFT  ,ST_SYMB ,TT_NAV  ,DE_SS   ,_______ ,
+                                        CTL_ESC ,GUI_ENT ,KC_SPC        ,FN_SPC  ,GUI_ESC ,ALT_ENT
   ),
   [L_UPPER] = LAYOUT_moonlander(
     _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______       ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
@@ -50,14 +68,8 @@ const uint16_t PROGMEM keymaps [MY_MAX_LAYER + 1][MATRIX_ROWS][MATRIX_COLS] = {
     _______ ,_______ ,_______ ,_______ ,_______          ,_______       ,_______          ,_______ ,_______ ,_______ ,XXXXXXX ,_______ ,
                                         _______ ,_______ ,_______       ,_______ ,_______ ,_______
   ),
-  [L_NUM] = LAYOUT_moonlander(
-    _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______       ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
-    _______ ,_______ ,_______ ,XXXXXXX ,XXXXXXX ,XXXXXXX ,_______       ,_______ ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,_______ ,_______ ,
-    _______ ,XXXXXXX ,KC_3    ,KC_8    ,KC_1    ,XXXXXXX ,XXXXXXX       ,_______ ,XXXXXXX ,KC_0    ,KC_9    ,KC_2    ,XXXXXXX ,XXXXXXX ,
-    _______ ,KC_4    ,XXXXXXX ,KC_6    ,_______ ,XXXXXXX                         ,XXXXXXX ,KC_SPC  ,KC_7    ,XXXXXXX ,KC_5    ,XXXXXXX ,
-    _______ ,_______ ,_______ ,_______ ,_______          ,_______       ,_______          ,_______ ,_______ ,_______ ,XXXXXXX ,_______ ,
-                                        _______ ,_______ ,_______       ,_______ ,_______ ,_______
-  ),
+  [L_NUM] = LAYOUT_NUM,
+  [L_NUM2] = LAYOUT_NUM,
   [L_FN] = LAYOUT_moonlander(
     _______ ,KC_F1   ,KC_F2   ,KC_F3   ,KC_F4   ,KC_F5   ,KC_F11        ,KC_F12  ,KC_F6   ,KC_F7   ,KC_F8   ,KC_F9   ,KC_F10  ,_______ ,
     _______ ,_______ ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,_______       ,_______ ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,_______ ,_______ ,
@@ -66,14 +78,8 @@ const uint16_t PROGMEM keymaps [MY_MAX_LAYER + 1][MATRIX_ROWS][MATRIX_COLS] = {
     _______ ,_______ ,_______ ,_______ ,_______          ,_______       ,_______          ,_______ ,_______ ,_______ ,XXXXXXX ,_______ ,
                                         _______ ,_______ ,_______       ,_______ ,_______ ,_______
   ),
-  [L_SYMBOL] = LAYOUT_moonlander(
-    _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______       ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
-    _______ ,_______ ,DE_COLN ,DE_EXLM ,ST_CIRC ,XXXXXXX ,_______       ,_______ ,XXXXXXX ,DE_EURO ,DE_HASH ,DE_MORE ,_______ ,_______ ,
-    _______ ,ST_GRVE ,DE_EQL  ,DE_MINS ,DE_SLSH ,DE_ASTR ,XXXXXXX       ,_______ ,DE_AMPR ,DE_LCBR ,DE_LPRN ,DE_RPRN ,DE_PLUS ,DE_PIPE ,
-    _______ ,DE_BSLS ,DE_SCLN ,DE_QST  ,DE_UNDS ,DE_AT                           ,DE_LESS ,DE_DLR  ,DE_LBRC ,DE_RBRC ,DE_RCBR ,DE_PERC ,
-    _______ ,_______ ,_______ ,_______ ,_______          ,_______       ,_______          ,_______ ,_______ ,_______ ,DE_TILD ,_______ ,
-                                        _______ ,_______ ,_______       ,_______ ,_______ ,_______
-  ),
+  [L_SYMBOL] = LAYOUT_SYMBOL,
+  [L_SYMBOL2] = LAYOUT_SYMBOL,
   [L_QWERTZ] = LAYOUT_moonlander(
     _______ ,KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,KC_6          ,KC_5    ,KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,_______ ,
     KC_TAB  ,KC_Q    ,KC_W    ,KC_E    ,KC_R    ,KC_T    ,DE_Z          ,_______ ,DE_Z    ,KC_U    ,KC_I    ,KC_O    ,KC_P    ,DE_UE   ,
@@ -122,6 +128,9 @@ const uint8_t PROGMEM ledmap[MY_MAX_LAYER + 1][DRIVER_LED_TOTAL][3] = {
   [L_UPPER] = LEDS_HOMEROW,
   [L_SHCUT] = LEDS_HOMEROW,
   [L_SYMBOL] = LEDS_HOMEROW,
+  [L_SYMBOL2] = LEDS_HOMEROW,
+  [L_NUM] = LEDS_HOMEROW,
+  [L_NUM2] = LEDS_HOMEROW,
   [L_NAV] = LED_LAYOUT_moonlander(
     ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo       ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,
     ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo       ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,
@@ -129,14 +138,6 @@ const uint8_t PROGMEM ledmap[MY_MAX_LAYER + 1][DRIVER_LED_TOTAL][3] = {
     ooooooo ,BLUE    ,ooooooo ,ooooooo ,ooooooo ,ooooooo                         ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,BLUE    ,ooooooo ,
     ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo          ,ooooooo       ,PINK             ,ooooooo ,PINK    ,ooooooo ,ooooooo ,ooooooo ,
                                         ooooooo ,ooooooo ,ooooooo       ,ooooooo ,ooooooo ,ooooooo
-  ),
-  [L_NUM] = LED_LAYOUT_moonlander(
-    ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo       ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,
-    ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo       ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,
-    ooooooo ,ooooooo ,YELLOW  ,FLESH   ,CYAN    ,ooooooo ,ooooooo       ,ooooooo ,ooooooo ,CYAN    ,FLESH   ,YELLOW  ,ooooooo ,ooooooo ,
-    ooooooo ,BLUE    ,ooooooo ,ooooooo ,ooooooo ,ooooooo                         ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,BLUE    ,ooooooo ,
-    ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo          ,ooooooo       ,ooooooo          ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,
-                                        ooooooo ,ooooooo ,ooooooo       ,ooooooo ,PINK    ,ooooooo
   ),
   [L_QWERTZ] = LED_LAYOUT_moonlander(
     ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo       ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,PINK    ,
