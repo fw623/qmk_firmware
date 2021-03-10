@@ -28,8 +28,10 @@ enum layer {
   L_SHCUT,
   L_NAV,
   L_NUM,
+  L_NUM2,
   L_FN,
   L_SYMBOL,
+  L_SYMBOL2,
   L_MOUSE,
   // L_GREEK_L,
   // L_GREEK_U,
@@ -64,10 +66,14 @@ enum custom_keycodes {
 #define TG_QWTZ TG(L_QWERTZ)
 #define TG_CUBE TG(L_CUBING)
 #define TT_NAV  TT(L_NAV)
+#define TT_NUM  TT(L_NUM)
+#define TT_FN   TT(L_FN)
 #define CTL_ENT LCTL_T(KC_ENTER)
 #define CTL_ESC LCTL_T(KC_ESCAPE)
 #define ALT_ESC LALT_T(KC_ESCAPE)
 #define ALT_ENT LALT_T(KC_ENTER)
+#define GUI_ESC LGUI_T(KC_ESCAPE)
+#define GUI_ENT LGUI_T(KC_ENTER)
 #define NUMCAPS LT(L_NUM, KC_CAPS)
 #define MO_FN   MO(L_FN)
 #define FN_SPC  LT(L_FN, KC_SPC)
