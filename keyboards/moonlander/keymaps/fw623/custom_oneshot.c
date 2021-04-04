@@ -25,11 +25,11 @@ cosm_t custom_oneshots[NUM_COSM] = {
   { ST_FN,   L_FN,     KC_NO,   false, 0, false, false, false, false },
 };
 
-#define IGNORE_INTERRUPTS_BY_LEN 9
+#define IGNORE_INTERRUPTS_BY_LEN 4
 uint16_t ignore_interrupts_by[IGNORE_INTERRUPTS_BY_LEN] = {
-  ST_SFT, ST_SYMB, ST_NUM,
-  ST_M_X, ST_C_X,
-  ALT_ENT, ALT_ESC, CTL_ENT, CTL_ESC,
+  ST_SFT, ST_SYMB, ST_NUM, ST_FN,
+  /* ST_M_X, ST_C_X, */
+  /* ALT_ENT, ALT_ESC, CTL_ENT, CTL_ESC, */
 };
 
 static bool is_interrupting_key (uint16_t keycode) {
@@ -77,14 +77,14 @@ static void handle_current_cosm_key (cosm_t *cosm, keyrecord_t *record) {
       cosm->pressed = true;
       cosm->interrupted = false;
       cosm->oneshot_active = false;
-      
+
       if (!cosm->locked) { set_cosm(cosm); } else { unset_cosm(cosm); }
     }
-    
+
   } else { // released
     cosm->pressed = false;
     cosm->released_at = timer_read();
-    
+
     if (cosm->interrupted) { // interrupted ==> reset unset layer and keycode
       if (!cosm->locked) { unset_cosm(cosm); } else { set_cosm(cosm); }
     } else { // not interrupted ==> activate oneshot behaviour
@@ -126,4 +126,3 @@ bool handle_cosms (uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
-
