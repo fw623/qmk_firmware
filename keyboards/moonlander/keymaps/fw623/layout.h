@@ -77,6 +77,10 @@ enum custom_keycodes {
 #define NUMCAPS LT(L_NUM, KC_CAPS)
 #define MO_FN   MO(L_FN)
 #define FN_SPC  LT(L_FN, KC_SPC)
+#define LSFT_RA LSFT_T(KC_RIGHT)
+#define LSFT_LA LSFT_T(KC_LEFT)
+#define LSFT_DA LSFT_T(KC_DOWN)
+#define LSFT_UA LSFT_T(KC_UP)
 
 extern const uint16_t PROGMEM keymaps[MY_MAX_LAYER + 1][MATRIX_ROWS][MATRIX_COLS];
 
