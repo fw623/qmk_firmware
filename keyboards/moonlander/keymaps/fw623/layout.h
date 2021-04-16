@@ -26,22 +26,17 @@ enum layer {
   L_LOWER,
   L_UPPER,
   L_SHCUT,
-  L_NAV,
   L_NUM,
   L_NUM2,
   L_FN,
   L_SYMBOL,
   L_SYMBOL2,
   L_MOUSE,
-  // L_GREEK_L,
-  // L_GREEK_U,
-  // L_MATH, // maybe latex instead of math
   L_QWERTZ,
   L_GAMING,
-  L_CUBING,
-  // L_KEYVAL,
+  L_NAV,
 };
-#define MY_MAX_LAYER L_CUBING
+#define MY_MAX_LAYER L_NAV
 
 /* ========== LAYOUT definitions ========== */
 enum custom_keycodes {
@@ -64,7 +59,6 @@ enum custom_keycodes {
 
 #define TG_GAME TG(L_GAMING)
 #define TG_QWTZ TG(L_QWERTZ)
-#define TG_CUBE TG(L_CUBING)
 #define TT_NAV  TT(L_NAV)
 #define TT_NUM  TT(L_NUM)
 #define TT_FN   TT(L_FN)
