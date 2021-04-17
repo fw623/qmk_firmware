@@ -114,6 +114,7 @@ const uint8_t PROGMEM ledmap[MY_MAX_LAYER + 1][DRIVER_LED_TOTAL][3] = {
   [L_SYMBOL2] = LEDS_HOMEROW,
   [L_NUM] = LEDS_HOMEROW,
   [L_NUM2] = LEDS_HOMEROW,
+  [L_FN] = LEDS_HOMEROW,
   [L_QWERTZ] = LED_LAYOUT_moonlander(
     ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo       ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,PINK    ,
     ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo       ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,
