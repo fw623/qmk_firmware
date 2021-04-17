@@ -2,4 +2,4 @@
 
 CONSOLE_ENABLE = no
 COMMAND_ENABLE = no
-SRC = matrix.c layout.c custom_oneshot.c multihold.c
+SRC = matrix.c layout.c custom_oneshot.c multihold.c custom_lock.c
