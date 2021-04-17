@@ -19,13 +19,12 @@
 #include "keymap_german.h"
 #include "moonlander.h"
 
-#define MO_USER(layer) { if (record->event.pressed) { layer_on(L_SHCUT); } else { layer_off(L_SHCUT); } }
+#define MO_USER(layer) { if (record->event.pressed) { layer_on(layer); } else { layer_off(layer); } }
 
 /* ========== LAYER definitions ========== */
 enum layer {
   L_LOWER,
   L_UPPER,
-  L_SHCUT,
   L_NUM,
   L_NUM2,
   L_FN,
@@ -52,8 +51,6 @@ enum custom_keycodes {
   ST_SYMB, // custom oneshot symbol layer
   ST_NUM,  // custom oneshot number layer
   ST_FN,   // custom oneshot function key layer
-  ST_C_X,  // Ctrl+X on press, holds Ctrl until released
-  ST_M_X,  // Alt+X on press, holds Alt until released
   ST_LOCK, // lock currently pressed keys until either `ST_LOCK` is hit again, or locked key is pressed
 };
 

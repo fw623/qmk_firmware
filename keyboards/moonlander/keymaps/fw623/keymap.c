@@ -252,22 +252,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         tap_code(KC_CAPS);
       }
       return true;
-    case ST_C_X:
-      if (record->event.pressed) {
-        register_code(KC_LCTRL);
-        tap_code(KC_X);
-      } else {
-        unregister_code(KC_LCTRL);
-      }
-      return false;
-    case ST_M_X:
-      if (record->event.pressed) {
-        register_code(KC_LALT);
-        tap_code(KC_X);
-      } else {
-        unregister_code(KC_LALT);
-      }
-      return false;
     case RGB_SLD:
       if (record->event.pressed) { rgblight_mode(1); }
       return false;
