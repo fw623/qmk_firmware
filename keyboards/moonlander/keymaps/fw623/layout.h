@@ -87,4 +87,12 @@ extern const uint16_t PROGMEM keymaps[MY_MAX_LAYER + 1][MATRIX_ROWS][MATRIX_COLS
 #define PINK    {205,255,255}
 #define PINK_RGB 209,  0,255
 
+// Layer colors
+#define RGB_L_SFT  255, 255,   0 // red
+#define RGB_L_SYMB 255, 255, 255 // white
+#define RGB_L_NUM    0, 255,   0 // green
+#define RGB_L_FN     0, 255, 255 // cyan
+#define RGB_L_NAV  255,   0,   0 // red
+#define RGB_CAPS   PINK_RGB
+
 extern const uint8_t PROGMEM ledmap[MY_MAX_LAYER + 1][DRIVER_LED_TOTAL][3];

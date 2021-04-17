@@ -139,13 +139,6 @@ const uint8_t PROGMEM ledmap[MY_MAX_LAYER + 1][DRIVER_LED_TOTAL][3] = {
     ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo          ,ooooooo       ,ooooooo          ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,
                                         ooooooo ,ooooooo ,ooooooo       ,ooooooo ,ooooooo ,ooooooo
   ),
-  [L_NAV] = LED_LAYOUT_moonlander(
-    ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo       ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,
-    ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo       ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,
-    ooooooo ,ooooooo ,YELLOW  ,FLESH   ,CYAN    ,ooooooo ,ooooooo       ,ooooooo ,ooooooo ,CYAN    ,FLESH   ,YELLOW  ,ooooooo ,ooooooo ,
-    ooooooo ,BLUE    ,ooooooo ,ooooooo ,ooooooo ,ooooooo                         ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,BLUE    ,ooooooo ,
-    ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo          ,ooooooo       ,PINK             ,ooooooo ,ooooooo ,PINK ,ooooooo ,ooooooo ,
-                                        ooooooo ,ooooooo ,ooooooo       ,ooooooo ,ooooooo ,ooooooo
-  ),
+  [L_NAV] = LEDS_HOMEROW,
 };
 // clang-format on

@@ -19,10 +19,10 @@
 #include "config.h"
 
 cosm_t custom_oneshots[NUM_COSM] = {
-  { ST_SFT,  L_UPPER,  KC_RSFT, false, 0, false, false, false, false },
-  { ST_SYMB, L_SYMBOL, KC_NO,   false, 0, false, false, false, false },
-  { ST_NUM,  L_NUM,    KC_NO,   false, 0, false, false, false, false },
-  { ST_FN,   L_FN,     KC_NO,   false, 0, false, false, false, false },
+  { ST_SFT,  L_UPPER,  KC_RSFT, false, 0, false, false, false, false, { RGB_L_SFT }  },
+  { ST_SYMB, L_SYMBOL, KC_NO,   false, 0, false, false, false, false, { RGB_L_SYMB } },
+  { ST_NUM,  L_NUM,    KC_NO,   false, 0, false, false, false, false, { RGB_L_NUM }  },
+  { ST_FN,   L_FN,     KC_NO,   false, 0, false, false, false, false, { RGB_L_FN }   },
 };
 
 #define IGNORE_INTERRUPTS_BY_LEN 4

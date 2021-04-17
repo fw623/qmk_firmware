@@ -32,6 +32,14 @@ void keyboard_post_init_user(void) {
   rgb_matrix_enable();
 }
 
+/* set layer color on both "piano keys" */
+static void set_layer_lock_color(bool *other_active, uint8_t r, uint8_t g, uint8_t b) {
+  if (!(*other_active)) { rgb_matrix_set_color(35, r, g, b); }
+  rgb_matrix_set_color(71, r, g, b);
+
+  *other_active = true;
+}
+
 void set_layer_color(int layer) {
   for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
     HSV hsv = {
@@ -47,9 +55,25 @@ void set_layer_color(int layer) {
         rgb_matrix_set_color( i, f * rgb.r, f * rgb.g, f * rgb.b );
     }
   }
+
+  bool other_active = false;
+
+  // custom oneshot layers locked
+  for (int i = 0; i < NUM_COSM; i++) {
+      if (custom_oneshots[i].locked) {
+        RGB rgb = custom_oneshots[i].rgb;
+        set_layer_lock_color(&other_active, rgb.r, rgb.g, rgb.b);
+      }
+  }
+
+  // tap toggle layers
+  if (IS_LAYER_ON(L_NUM) && !matrix_is_on(4, 3)) { set_layer_lock_color(&other_active, RGB_L_NUM); }
+  if (IS_LAYER_ON(L_FN) && !matrix_is_on(4, 3)) { set_layer_lock_color(&other_active, RGB_L_FN); }
+  if (IS_LAYER_ON(L_NAV) && !matrix_is_on(10, 4)) { set_layer_lock_color(&other_active, RGB_L_NAV); }
+
+  // caps lock
   if (!IS_LAYER_ON(L_GAMING) && host_keyboard_led_state().caps_lock) {
-    rgb_matrix_set_color(19, PINK_RGB);
-    rgb_matrix_set_color(35, PINK_RGB);
+    set_layer_lock_color(&other_active, RGB_CAPS);
   }
 }
 

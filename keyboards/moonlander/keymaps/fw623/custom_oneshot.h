@@ -33,6 +33,7 @@ typedef struct cosm_t {
   bool interrupted;
   bool oneshot_active;
   bool locked;
+  RGB rgb;
 } cosm_t;
 
 #define NUM_COSM 4
