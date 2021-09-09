@@ -20,8 +20,8 @@
 #define LAYOUT_SYMBOL LAYOUT_moonlander(\
     _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______       ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,\
     _______ ,_______ ,DE_COLN ,DE_EXLM ,ST_CIRC ,XXXXXXX ,_______       ,_______ ,XXXXXXX ,DE_EURO ,DE_HASH ,DE_RABK ,_______ ,_______ ,\
-    _______ ,ST_GRVE ,DE_EQL  ,DE_MINS ,DE_SLSH ,DE_ASTR ,XXXXXXX       ,_______ ,DE_AMPR ,DE_LCBR ,DE_LPRN ,DE_RPRN ,DE_PLUS ,DE_PIPE ,\
-    _______ ,DE_BSLS ,DE_SCLN ,DE_QUES ,DE_UNDS ,DE_AT                           ,DE_LABK ,DE_DLR  ,DE_LBRC ,DE_RBRC ,DE_RCBR ,DE_PERC ,\
+    _______ ,ST_GRVE ,DE_EQL  ,DE_MINS ,DE_SLSH ,DE_DLR  ,XXXXXXX       ,_______ ,DE_AMPR ,DE_LCBR ,DE_LPRN ,DE_RPRN ,DE_PLUS ,DE_PIPE ,\
+    _______ ,DE_BSLS ,DE_SCLN ,DE_QUES ,DE_UNDS ,DE_AT                           ,DE_LABK ,DE_ASTR ,DE_LBRC ,DE_RBRC ,DE_RCBR ,DE_PERC ,\
     _______ ,_______ ,_______ ,_______ ,_______          ,_______       ,_______          ,_______ ,_______ ,_______ ,DE_TILD ,_______ ,\
                                         _______ ,_______ ,_______       ,_______ ,_______ ,_______\
   )
