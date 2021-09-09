@@ -2,12 +2,12 @@
 MCU = STM32F103
 
 MCU_LDSCRIPT = jm60_bootloader
-BOARD = JM60_BOARD
+BOARD = ST_NUCLEO64_F103RB
 
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = full     # Virtual DIP switch configuration
+BOOTMAGIC_ENABLE = lite     # Enable Bootmagic Lite
 MOUSEKEY_ENABLE = no        # Mouse keys
 EXTRAKEY_ENABLE = yes       # Audio control and System control
 CONSOLE_ENABLE = no         # Console for debug
