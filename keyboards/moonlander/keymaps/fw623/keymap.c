@@ -77,7 +77,8 @@ void set_layer_color(int layer) {
 }
 
 void rgb_matrix_indicators_user(void) {
-  if (g_suspend_state || keyboard_config.disable_layer_led) { return; }
+  /* if (g_suspend_state || keyboard_config.disable_layer_led) { return; } */
+  if (keyboard_config.disable_layer_led) { return; } // TODO: figure out why `g_suspend_state` is no longer defined
 
   uint8_t layer = biton32(layer_state);
   if (L_LOWER <= layer && layer <= MY_MAX_LAYER) {
