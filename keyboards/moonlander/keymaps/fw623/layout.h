@@ -70,14 +70,14 @@ enum custom_keycodes {
 #define ALT_ENT LALT_T(KC_ENTER)
 #define GUI_ESC LGUI_T(KC_ESCAPE)
 #define GUI_ENT LGUI_T(KC_ENTER)
-#define SFTMINS LSFT_T(DE_MINS)
+#define SFT_MINS LSFT_T(DE_MINS)
 #define SFT_SPC LSFT_T(KC_SPC)
 #define LSFT_RA LSFT_T(KC_RIGHT)
 #define LSFT_LA LSFT_T(KC_LEFT)
 #define LSFT_DA LSFT_T(KC_DOWN)
 #define LSFT_UA LSFT_T(KC_UP)
 
-#define SYMUNDS LT(L_SYMBOL, DE_UNDS)
+#define SYM_UNDS LT(L_SYMBOL, DE_UNDS)
 #define NUMCAPS LT(L_NUM, KC_CAPS)
 #define FN_SPC  LT(L_FN, KC_SPC)
 
