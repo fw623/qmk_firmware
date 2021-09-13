@@ -122,11 +122,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case SYMUNDS:
       // NOTE: we must register shift manually because it doesn't work automatically for TAP part
       if (!IS_LAYER_ON(L_UPPER)) {
-        if (record->event.pressed) {
-          register_code(KC_LSFT);
-        } else {
-          unregister_code(KC_LSFT);
-        }
+        UN_REGISTER_CODE(record->event.pressed, KC_LSFT);
       }
       break;
     case DE_HASH:
@@ -144,11 +140,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case LSFT_LA:
     case LSFT_DA:
     case LSFT_UA:
-      if (record->event.pressed) {
-        layer_on(L_UPPER);
-      } else {
-        layer_off(L_UPPER);
-      }
+      LAYER_ON_OFF(record->event.pressed, L_UPPER);
       break;
     case ST_CIRC:
       if (record->event.pressed) {
@@ -174,7 +166,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       repeat(record, KC_RIGHT, 12);
       break;
     case KC_RSFT:
-      MO_USER(L_UPPER);
+      LAYER_ON_OFF(record->event.pressed, L_UPPER);
       // we need to call this here to get layer LEDs activated (for whatever reason)
       return process_action_kb(record);
     case TG(L_GAMING):

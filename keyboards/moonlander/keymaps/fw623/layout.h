@@ -19,7 +19,9 @@
 #include "keymap_german.h"
 #include "moonlander.h"
 
-#define MO_USER(layer) { if (record->event.pressed) { layer_on(layer); } else { layer_off(layer); } }
+#define LAYER_ON_OFF(on, layer) { if (on) { layer_on(layer); } else { layer_off(layer); } }
+#define UN_REGISTER_CODE(register, code) { if (register) { register_code(code); } else { unregister_code(code); } }
+#define UN_REGISTER_CODE16(register, code) { if (register) { register_code16(code); } else { unregister_code16(code); } }
 
 /* ========== LAYER definitions ========== */
 enum layer {
