@@ -190,7 +190,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (!record->event.pressed && host_keyboard_led_state().caps_lock) {
         tap_code(KC_CAPS);
       }
-      return true;
+      break;
     case RGB_SLD:
       if (record->event.pressed) { rgblight_mode(1); }
       return false;
