@@ -103,12 +103,24 @@ void matrix_scan_user(void) {
   timeout_cosms(); // custom oneshot modifiers
 }
 
+static bool hash_is_pressed = false;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (!handle_custom_lock(keycode, record)) { return false; }
   if (!handle_cosms(keycode, record)) { return false; }
   if (!handle_multiholds(keycode, record)) { return false; }
 
   switch (keycode) {
+    case DE_HASH:
+      hash_is_pressed = record->event.pressed;
+      break;
+    case DE_COLN:
+      if (hash_is_pressed && record->event.pressed) {
+        // NOTE: we'll later also send a release of DE_COLN, but that shouldn't matter
+        tap_code16(DE_QUOT);
+        return false;
+      }
+      break;
     case SFTMINS:
     case LSFT_RA:
     case LSFT_LA:
