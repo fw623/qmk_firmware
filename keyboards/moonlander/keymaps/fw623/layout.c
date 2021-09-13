@@ -38,7 +38,7 @@
 const uint16_t PROGMEM keymaps [MY_MAX_LAYER + 1][MATRIX_ROWS][MATRIX_COLS] = {
   [L_LOWER] = LAYOUT_moonlander(
     TG_GAME ,KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,KC_6          ,KC_5    ,KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,TG_QWTZ ,
-    _______ ,_______ ,KC_DOT  ,KC_O    ,KC_U    ,DE_ADIA ,_______       ,_______ ,KC_Q    ,KC_G    ,KC_C    ,KC_L    ,_______ ,_______ ,
+    _______ ,KC_CAPS ,KC_DOT  ,KC_O    ,KC_U    ,DE_ADIA ,_______       ,_______ ,KC_Q    ,KC_G    ,KC_C    ,KC_L    ,KC_CAPS ,_______ ,
     KC_TAB  ,KC_K    ,KC_A    ,KC_E    ,KC_I    ,DE_Y    ,DE_ODIA       ,_______ ,KC_B    ,KC_T    ,KC_R    ,KC_N    ,KC_F    ,KC_J    ,
     KC_BSPC ,KC_H    ,DE_Z    ,KC_X    ,KC_COMM ,DE_UDIA                         ,KC_P    ,KC_D    ,KC_W    ,KC_M    ,KC_S    ,KC_V    ,
     KC_DOWN ,KC_DEL  ,_______ ,TT_NUM  ,KC_SPC           ,LSFT_UA       ,LSFT_LA          ,SFTMINS ,SYMUNDS ,TT_NAV  ,DE_SS   ,KC_RIGHT,
