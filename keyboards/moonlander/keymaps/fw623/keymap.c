@@ -104,13 +104,31 @@ void matrix_scan_user(void) {
 }
 
 static bool hash_is_pressed = false;
+static uint16_t last_keycode = KC_NO, current_keycode = KC_NO;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  last_keycode = current_keycode;
+  current_keycode = keycode;
+
+  if (last_keycode == SYMUNDS && !IS_LAYER_ON(L_UPPER)) {
+    unregister_code(KC_LSFT);
+  }
+
   if (!handle_custom_lock(keycode, record)) { return false; }
   if (!handle_cosms(keycode, record)) { return false; }
   if (!handle_multiholds(keycode, record)) { return false; }
 
   switch (keycode) {
+    case SYMUNDS:
+      // NOTE: we must register shift manually because it doesn't work automatically for TAP part
+      if (!IS_LAYER_ON(L_UPPER)) {
+        if (record->event.pressed) {
+          register_code(KC_LSFT);
+        } else {
+          unregister_code(KC_LSFT);
+        }
+      }
+      break;
     case DE_HASH:
       hash_is_pressed = record->event.pressed;
       break;
