@@ -64,6 +64,14 @@ const uint16_t PROGMEM keymaps [MY_MAX_LAYER + 1][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [L_SYMBOL] = LAYOUT_SYMBOL,
   [L_SYMBOL2] = LAYOUT_SYMBOL,
+  [L_LCTL] = LAYOUT_moonlander(
+    _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______       ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
+    _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______       ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
+    _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______       ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
+    _______ ,_______ ,_______ ,_______ ,_______ ,_______                         ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
+    _______ ,_______ ,_______ ,_______ ,_______          ,_______       ,_______          ,SFT_SPC ,_______ ,_______ ,_______ ,_______ ,
+                                        _______ ,_______ ,_______       ,_______ ,_______ ,_______
+  ),
   [L_QWERTZ] = LAYOUT_moonlander(
     _______ ,KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,KC_6          ,KC_5    ,KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,_______ ,
     KC_TAB  ,KC_Q    ,KC_W    ,KC_E    ,KC_R    ,KC_T    ,DE_Z          ,_______ ,DE_Z    ,KC_U    ,KC_I    ,KC_O    ,KC_P    ,DE_UDIA ,
@@ -112,6 +120,7 @@ const uint8_t PROGMEM ledmap[MY_MAX_LAYER + 1][DRIVER_LED_TOTAL][3] = {
   [L_UPPER] = LEDS_HOMEROW,
   [L_SYMBOL] = LEDS_HOMEROW,
   [L_SYMBOL2] = LEDS_HOMEROW,
+  [L_LCTL] = LEDS_HOMEROW,
   [L_NUM] = LEDS_HOMEROW,
   [L_NUM2] = LEDS_HOMEROW,
   [L_FN] = LEDS_HOMEROW,

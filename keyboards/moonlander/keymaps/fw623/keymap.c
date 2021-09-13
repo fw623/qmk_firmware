@@ -113,12 +113,35 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (last_keycode == SYM_UNDS && !IS_LAYER_ON(L_UPPER)) {
     unregister_code(KC_LSFT);
   }
+  if (last_keycode == SFT_SPC && IS_LAYER_ON(L_LCTL)) {
+    register_code(KC_LCTL);
+  }
 
   if (!handle_custom_lock(keycode, record)) { return false; }
   if (!handle_cosms(keycode, record)) { return false; }
   if (!handle_multiholds(keycode, record)) { return false; }
 
   switch (keycode) {
+    case SFT_SPC:
+    case SFT_MINS:
+    case LSFT_RA:
+    case LSFT_LA:
+    case LSFT_DA:
+    case LSFT_UA:
+      LAYER_ON_OFF(record->event.pressed, L_UPPER);
+      break;
+  }
+
+  switch (keycode) {
+    case CTL_ESC:
+      LAYER_ON_OFF(record->event.pressed, L_LCTL);
+      break;
+    case SFT_SPC:
+      if (IS_LAYER_ON(L_LCTL)) {
+        // disable CTL for space tap
+        UN_REGISTER_CODE(!record->event.pressed, KC_LCTL);
+      }
+      break;
     case SYM_UNDS:
       // NOTE: we must register shift manually because it doesn't work automatically for TAP part
       if (!IS_LAYER_ON(L_UPPER)) {
@@ -134,13 +157,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         tap_code16(DE_QUOT);
         return false;
       }
-      break;
-    case SFT_MINS:
-    case LSFT_RA:
-    case LSFT_LA:
-    case LSFT_DA:
-    case LSFT_UA:
-      LAYER_ON_OFF(record->event.pressed, L_UPPER);
       break;
     case ST_CIRC:
       if (record->event.pressed) {
