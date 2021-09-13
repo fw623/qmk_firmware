@@ -109,6 +109,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (!handle_multiholds(keycode, record)) { return false; }
 
   switch (keycode) {
+    case SFTMINS:
+    case LSFT_RA:
+    case LSFT_LA:
+    case LSFT_DA:
+    case LSFT_UA:
+      if (record->event.pressed) {
+        layer_on(L_UPPER);
+      } else {
+        layer_off(L_UPPER);
+      }
+      break;
     case ST_CIRC:
       if (record->event.pressed) {
         SEND_STRING(SS_TAP(X_GRAVE) SS_TAP(X_SPACE));
@@ -146,5 +157,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) { rgblight_mode(1); }
       return false;
   }
+
   return true;
 }

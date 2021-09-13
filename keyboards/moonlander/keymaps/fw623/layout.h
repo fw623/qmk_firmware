@@ -54,24 +54,30 @@ enum custom_keycodes {
   ST_LOCK, // lock currently pressed keys until either `ST_LOCK` is hit again, or locked key is pressed
 };
 
+
 #define TG_GAME TG(L_GAMING)
 #define TG_QWTZ TG(L_QWERTZ)
 #define TT_NAV  TT(L_NAV)
 #define TT_NUM  TT(L_NUM)
 #define TT_FN   TT(L_FN)
+#define MO_FN   MO(L_FN)
+
 #define CTL_ENT LCTL_T(KC_ENTER)
 #define CTL_ESC LCTL_T(KC_ESCAPE)
 #define ALT_ESC LALT_T(KC_ESCAPE)
 #define ALT_ENT LALT_T(KC_ENTER)
 #define GUI_ESC LGUI_T(KC_ESCAPE)
 #define GUI_ENT LGUI_T(KC_ENTER)
-#define NUMCAPS LT(L_NUM, KC_CAPS)
-#define MO_FN   MO(L_FN)
-#define FN_SPC  LT(L_FN, KC_SPC)
+#define SFTMINS LSFT_T(DE_MINS)
+#define SFT_SPC LSFT_T(KC_SPC)
 #define LSFT_RA LSFT_T(KC_RIGHT)
 #define LSFT_LA LSFT_T(KC_LEFT)
 #define LSFT_DA LSFT_T(KC_DOWN)
 #define LSFT_UA LSFT_T(KC_UP)
+
+#define NUMCAPS LT(L_NUM, KC_CAPS)
+#define FN_SPC  LT(L_FN, KC_SPC)
+
 
 extern const uint16_t PROGMEM keymaps[MY_MAX_LAYER + 1][MATRIX_ROWS][MATRIX_COLS];
 

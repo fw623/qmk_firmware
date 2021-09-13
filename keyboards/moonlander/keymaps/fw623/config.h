@@ -23,6 +23,8 @@
 #define TAPPING_TOGGLE 1
 #define TAPPING_TERM 200 // default 200
 
+#define HOLD_ON_OTHER_KEY_PRESS
+
 #define MOUSEKEY_DELAY 50 // default 300
 #define MOUSEKEY_INTERVAL 3 // default 50
 #define MOUSEKEY_MAX_SPEED 10 // default 10
