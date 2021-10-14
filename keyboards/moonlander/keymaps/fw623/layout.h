@@ -79,6 +79,7 @@ enum custom_keycodes {
 #define LSFT_UA LSFT_T(KC_UP)
 
 #define SYM_UNDS LT(L_SYMBOL, DE_UNDS)
+#define NUM_SLSH LT(L_NUM, DE_SLSH)
 #define NUMCAPS LT(L_NUM, KC_CAPS)
 #define FN_SPC  LT(L_FN, KC_SPC)
 
