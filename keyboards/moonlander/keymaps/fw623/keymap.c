@@ -113,6 +113,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if ((last_keycode == SYM_UNDS || last_keycode == NUM_SLSH) && !IS_LAYER_ON(L_UPPER)) {
     unregister_code(KC_LSFT);
   }
+  if ((last_keycode == KC_COMM) && IS_LAYER_ON(L_UPPER)) {
+    register_code(KC_LSFT);
+  }
   if (last_keycode == SFT_SPC && IS_LAYER_ON(L_LCTL)) {
     register_code(KC_LCTL);
   }
@@ -147,6 +150,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       // NOTE: we must register shift manually because it doesn't work automatically for TAP part
       if (!IS_LAYER_ON(L_UPPER)) {
         UN_REGISTER_CODE(record->event.pressed, KC_LSFT);
+      }
+      break;
+    case KC_COMM:
+      // NOTE: we must unregister shift temporarily
+      if (IS_LAYER_ON(L_UPPER)) {
+          UN_REGISTER_CODE(!record->event.pressed, KC_LSFT);
       }
       break;
     case DE_HASH:
