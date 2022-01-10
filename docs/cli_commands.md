@@ -20,7 +20,7 @@ qmk compile [-c] <configuratorExport.json>
 qmk compile [-c] [-e <var>=<value>] [-j <num_jobs>] -kb <keyboard_name> -km <keymap_name>
 ```
 
-**Usage in Keyboard Directory**:  
+**Usage in Keyboard Directory**:
 
 Must be in keyboard directory with a default keymap, or in keymap directory for keyboard, or supply one with `--keymap <keymap_name>`
 ```
@@ -44,7 +44,7 @@ $ qmk compile
 or with optional keymap argument
 
 ```
-$ cd ~/qmk_firmware/keyboards/clueboard/66/rev4 
+$ cd ~/qmk_firmware/keyboards/clueboard/66/rev4
 $ qmk compile -km 66_iso
 Ψ Compiling keymap with make clueboard/66/rev4:66_iso
 ...
@@ -58,7 +58,7 @@ $ qmk compile
 ...
 ```
 
-**Usage in Layout Directory**:  
+**Usage in Layout Directory**:
 
 Must be under `qmk_firmware/layouts/`, and in a keymap folder.
 ```
@@ -116,6 +116,20 @@ This command lets you configure the behavior of QMK. For the full `qmk config` d
 
 ```
 qmk config [-ro] [config_token1] [config_token2] [...] [config_tokenN]
+```
+
+## `qmk cd`
+
+This command opens a new shell in your `qmk_firmware` directory.
+
+Note that if you are already somewhere within `QMK_HOME` (for example, the `keyboards/` folder), nothing will happen.
+
+To exit out into the parent shell, simply type `exit`.
+
+**Usage**:
+
+```
+qmk cd
 ```
 
 ## `qmk console`
@@ -238,7 +252,7 @@ qmk json2c [-o OUTPUT] filename
 
 ## `qmk c2json`
 
-Creates a keymap.json from a keymap.c.  
+Creates a keymap.json from a keymap.c.
 **Note:** Parsing C source files is not easy, therefore this subcommand may not work with your keymap. In some cases not using the C pre-processor helps.
 
 **Usage**:
@@ -327,7 +341,7 @@ qmk clean [-a]
 
 ## `qmk format-text`
 
-This command formats text files to have proper line endings. 
+This command formats text files to have proper line endings.
 
 Every text file in the repository needs to have Unix (LF) line ending.
 If you are working on **Windows**, you must ensure that line endings are corrected in order to get your PRs merged.
@@ -338,7 +352,7 @@ qmk format-text
 
 ## `qmk format-c`
 
-This command formats C code using clang-format. 
+This command formats C code using clang-format.
 
 Run it with no arguments to format all core code that has been changed. Default checks `origin/master` with `git diff`, branch can be changed using `-b <branch_name>`
 
@@ -368,12 +382,12 @@ qmk format-c
 qmk format-c -b branch_name
 ```
 
-## `qmk compiledb`
+## `qmk generate-compilation-database`
 
 **Usage**:
 
 ```
-qmk compiledb [-kb KEYBOARD] [-km KEYMAP]
+qmk generate-compilation-database [-kb KEYBOARD] [-km KEYMAP]
 ```
 
 Creates a `compile_commands.json` file.
@@ -386,7 +400,7 @@ This command needs to know which keyboard and keymap to build. It uses the same 
 
 ```
 $ cd ~/qmk_firmware/keyboards/gh60/satan/keymaps/colemak
-$ qmk compiledb
+$ qmk generate-compilation-database
 Ψ Making clean
 Ψ Gathering build instructions from make -n gh60/satan:colemak
 Ψ Found 50 compile commands
@@ -399,6 +413,8 @@ Now open your dev environment and live a squiggly-free life.
 
 This command starts a local HTTP server which you can use for browsing or improving the docs. Default port is 8936.
 Use the `-b`/`--browser` flag to automatically open the local webserver in your default browser.
+
+This command runs `docsify serve` if `docsify-cli` is installed (which provides live reload), otherwise Python's builtin HTTP server module will be used.
 
 **Usage**:
 
@@ -439,7 +455,7 @@ qmk kle2json [-f] <filename>
 **Examples**:
 
 ```
-$ qmk kle2json kle.txt 
+$ qmk kle2json kle.txt
 ☒ File info.json already exists, use -f or --force to overwrite.
 ```
 
@@ -465,5 +481,20 @@ This command runs the python test suite. If you make changes to python code you 
 **Usage**:
 
 ```
-qmk pytest
+qmk pytest [-t TEST]
 ```
+
+**Examples**:
+
+Run entire test suite:
+
+    qmk pytest
+
+Run test group:
+
+    qmk pytest -t qmk.tests.test_cli_commands
+
+Run single test:
+
+    qmk pytest -t qmk.tests.test_cli_commands.test_c2json
+    qmk pytest -t qmk.tests.test_qmk_path
