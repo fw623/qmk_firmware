@@ -19,110 +19,110 @@
 #include "config.h"
 
 cosm_t custom_oneshots[NUM_COSM] = {
-  { ST_SFT,  L_UPPER,  KC_RSFT, false, 0, false, false, false, false, { RGB_L_SFT }  },
-  { ST_SYMB, L_SYMBOL, KC_NO,   false, 0, false, false, false, false, { RGB_L_SYMB } },
-  { ST_NUM,  L_NUM,    KC_NO,   false, 0, false, false, false, false, { RGB_L_NUM }  },
-  { ST_FN,   L_FN,     KC_NO,   false, 0, false, false, false, false, { RGB_L_FN }   },
+    { ST_SFT,  L_UPPER,  KC_RSFT, false, 0, false, false, false, false, { RGB_L_SFT }  },
+    { ST_SYMB, L_SYMBOL, KC_NO,   false, 0, false, false, false, false, { RGB_L_SYMB } },
+    { ST_NUM,  L_NUM,    KC_NO,   false, 0, false, false, false, false, { RGB_L_NUM }  },
+    { ST_FN,   L_FN,     KC_NO,   false, 0, false, false, false, false, { RGB_L_FN }   },
 };
 
 #define IGNORE_INTERRUPTS_BY_LEN 4
 uint16_t ignore_interrupts_by[IGNORE_INTERRUPTS_BY_LEN] = {
-  ST_SFT, ST_SYMB, ST_NUM, ST_FN,
-  /* ST_M_X, ST_C_X, */
-  /* ALT_ENT, ALT_ESC, CTL_ENT, CTL_ESC, */
+    ST_SFT, ST_SYMB, ST_NUM, ST_FN,
+    /* ST_M_X, ST_C_X, */
+    /* ALT_ENT, ALT_ESC, CTL_ENT, CTL_ESC, */
 };
 
 static bool is_interrupting_key (uint16_t keycode) {
-  for (int i = 0; i < IGNORE_INTERRUPTS_BY_LEN; i++) {
-    if (ignore_interrupts_by[i] == keycode) { return false; }
-  }
-  return true;
+    for (int i = 0; i < IGNORE_INTERRUPTS_BY_LEN; i++) {
+        if (ignore_interrupts_by[i] == keycode) { return false; }
+    }
+    return true;
 }
 
 static inline void set_cosm (cosm_t *cosm) {
-  cosm->active = true;
-  if (cosm->layer >= 0) { layer_on(cosm->layer); }
-  if (cosm->keycode != KC_NO) { register_code(cosm->keycode); }
+    cosm->active = true;
+    if (cosm->layer >= 0) { layer_on(cosm->layer); }
+    if (cosm->keycode != KC_NO) { register_code(cosm->keycode); }
 }
 
 static inline void unset_cosm (cosm_t *cosm) {
-  cosm->active = false;
-  if (cosm->layer >= 0) { layer_off(cosm->layer); }
-  if (cosm->keycode != KC_NO) { unregister_code(cosm->keycode); }
+    cosm->active = false;
+    if (cosm->layer >= 0) { layer_off(cosm->layer); }
+    if (cosm->keycode != KC_NO) { unregister_code(cosm->keycode); }
 }
 
 static void timeout_cosm (cosm_t *cosm) {
-  if (cosm->oneshot_active && timer_elapsed(cosm->released_at) > COSM_TIMEOUT) {
-    cosm->oneshot_active = false;
-    // unset/set according to locked state
-    if (!cosm->locked) {
-      if (cosm->active) { unset_cosm(cosm); }
-    } else {
-      if (!cosm->active) { set_cosm(cosm); }
+    if (cosm->oneshot_active && timer_elapsed(cosm->released_at) > COSM_TIMEOUT) {
+        cosm->oneshot_active = false;
+        // unset/set according to locked state
+        if (!cosm->locked) {
+            if (cosm->active) { unset_cosm(cosm); }
+        } else {
+            if (!cosm->active) { set_cosm(cosm); }
+        }
     }
-  }
 }
 
 void timeout_cosms (void) {
-  for (int i = 0; i < NUM_COSM; i++) {
-    timeout_cosm(custom_oneshots + i);
-  }
+    for (int i = 0; i < NUM_COSM; i++) {
+        timeout_cosm(custom_oneshots + i);
+    }
 }
 
 static void handle_current_cosm_key (cosm_t *cosm, keyrecord_t *record) {
-  if (record->event.pressed) { // pressed
-    if (cosm->oneshot_active && timer_elapsed(cosm->released_at) <= COSM_LOCK_TIMEOUT) {
-      cosm->locked = !cosm->locked; // toggle lock status if doubletapped without interrupt
-    } else {
-      cosm->pressed = true;
-      cosm->interrupted = false;
-      cosm->oneshot_active = false;
+    if (record->event.pressed) { // pressed
+        if (cosm->oneshot_active && timer_elapsed(cosm->released_at) <= COSM_LOCK_TIMEOUT) {
+            cosm->locked = !cosm->locked; // toggle lock status if doubletapped without interrupt
+        } else {
+            cosm->pressed = true;
+            cosm->interrupted = false;
+            cosm->oneshot_active = false;
 
-      if (!cosm->locked) { set_cosm(cosm); } else { unset_cosm(cosm); }
+            if (!cosm->locked) { set_cosm(cosm); } else { unset_cosm(cosm); }
+        }
+
+    } else { // released
+        cosm->pressed = false;
+        cosm->released_at = timer_read();
+
+        if (cosm->interrupted) { // interrupted ==> reset unset layer and keycode
+            if (!cosm->locked) { unset_cosm(cosm); } else { set_cosm(cosm); }
+        } else { // not interrupted ==> activate oneshot behaviour
+            cosm->oneshot_active = true;
+        }
     }
-
-  } else { // released
-    cosm->pressed = false;
-    cosm->released_at = timer_read();
-
-    if (cosm->interrupted) { // interrupted ==> reset unset layer and keycode
-      if (!cosm->locked) { unset_cosm(cosm); } else { set_cosm(cosm); }
-    } else { // not interrupted ==> activate oneshot behaviour
-      cosm->oneshot_active = true;
-    }
-  }
 }
 
 static void handle_interrupting_key (cosm_t *cosm, keyrecord_t *record) {
-  if (record->event.pressed) {
-    if (cosm->pressed) { // currently pressed ==> interrupted
-      cosm->interrupted = true;
-    } else if (cosm->oneshot_active) { // currently oneshot active ==> oneshot inactive
-      cosm->oneshot_active = false;
-    } else { // neither pressed nor oneshot active ==> unset (or set when locked)
-      if (!cosm->locked) {
-	if (cosm->active) { unset_cosm(cosm); }
-      } else {
-	if (!cosm->active) { set_cosm(cosm); }
-      }
+    if (record->event.pressed) {
+        if (cosm->pressed) { // currently pressed ==> interrupted
+            cosm->interrupted = true;
+        } else if (cosm->oneshot_active) { // currently oneshot active ==> oneshot inactive
+            cosm->oneshot_active = false;
+        } else { // neither pressed nor oneshot active ==> unset (or set when locked)
+            if (!cosm->locked) {
+                if (cosm->active) { unset_cosm(cosm); }
+            } else {
+                if (!cosm->active) { set_cosm(cosm); }
+            }
+        }
     }
-  }
-  // ignore release events
+    // ignore release events
 }
 
 static bool handle_cosm (cosm_t *cosm, uint16_t keycode, keyrecord_t *record) {
-  if (keycode == cosm->trigger) { // cosm key
-    handle_current_cosm_key(cosm, record);
-    return false;
-  } else if (is_interrupting_key(keycode)) {  // other interrupting key
-    handle_interrupting_key(cosm, record);
-  }
-  return true;
+    if (keycode == cosm->trigger) { // cosm key
+        handle_current_cosm_key(cosm, record);
+        return false;
+    } else if (is_interrupting_key(keycode)) {  // other interrupting key
+        handle_interrupting_key(cosm, record);
+    }
+    return true;
 }
 
 bool handle_cosms (uint16_t keycode, keyrecord_t *record) {
-  for (int i = 0; i < NUM_COSM; i++) {
-    if (!handle_cosm(custom_oneshots + i, keycode, record)) { return false; }
-  }
-  return true;
+    for (int i = 0; i < NUM_COSM; i++) {
+        if (!handle_cosm(custom_oneshots + i, keycode, record)) { return false; }
+    }
+    return true;
 }

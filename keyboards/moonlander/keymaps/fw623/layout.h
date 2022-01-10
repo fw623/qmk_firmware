@@ -25,36 +25,36 @@
 
 /* ========== LAYER definitions ========== */
 enum layer {
-  L_LOWER,
-  L_UPPER,
-  L_NUM,
-  L_NUM2,
-  L_FN,
-  L_SYMBOL,
-  L_SYMBOL2,
-  L_LCTL,
-  L_MOUSE,
-  L_QWERTZ,
-  L_GAMING,
-  L_NAV,
+    L_LOWER,
+    L_UPPER,
+    L_NUM,
+    L_NUM2,
+    L_FN,
+    L_SYMBOL,
+    L_SYMBOL2,
+    L_LCTL,
+    L_MOUSE,
+    L_QWERTZ,
+    L_GAMING,
+    L_NAV,
 };
 #define MY_MAX_LAYER L_NAV
 
 /* ========== LAYOUT definitions ========== */
 enum custom_keycodes {
-  RGB_SLD = ML_SAFE_RANGE,
-  ST_IGN,  // ignored
-  ST_CIRC, // circumflex (not dead)
-  ST_GRVE, // grave accent (not dead)
-  ST_RPTU, // repeat UP
-  ST_RPTD, // repeat DOWN
-  ST_RPTL, // repeat LEFT
-  ST_RPTR, // repeat RIGHT
-  ST_SFT,  // custom oneshot shift
-  ST_SYMB, // custom oneshot symbol layer
-  ST_NUM,  // custom oneshot number layer
-  ST_FN,   // custom oneshot function key layer
-  ST_LOCK, // lock currently pressed keys until either `ST_LOCK` is hit again, or locked key is pressed
+    RGB_SLD = ML_SAFE_RANGE,
+    ST_IGN,  // ignored
+    ST_CIRC, // circumflex (not dead)
+    ST_GRVE, // grave accent (not dead)
+    ST_RPTU, // repeat UP
+    ST_RPTD, // repeat DOWN
+    ST_RPTL, // repeat LEFT
+    ST_RPTR, // repeat RIGHT
+    ST_SFT,  // custom oneshot shift
+    ST_SYMB, // custom oneshot symbol layer
+    ST_NUM,  // custom oneshot number layer
+    ST_FN,   // custom oneshot function key layer
+    ST_LOCK, // lock currently pressed keys until either `ST_LOCK` is hit again, or locked key is pressed
 };
 
 

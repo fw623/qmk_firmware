@@ -24,16 +24,16 @@
 
 // Custom One Shot Modifier (or Layer)
 typedef struct cosm_t {
-  const uint16_t trigger;
-  const int layer; // ignored iff < 0
-  const uint16_t keycode; // ignored iff == KC_NO
-  bool active; // true iff layer and keycode are active
-  uint16_t released_at;
-  bool pressed;
-  bool interrupted;
-  bool oneshot_active;
-  bool locked;
-  RGB rgb;
+    const uint16_t trigger;
+    const int layer; // ignored iff < 0
+    const uint16_t keycode; // ignored iff == KC_NO
+    bool active; // true iff layer and keycode are active
+    uint16_t released_at;
+    bool pressed;
+    bool interrupted;
+    bool oneshot_active;
+    bool locked;
+    RGB rgb;
 } cosm_t;
 
 #define NUM_COSM 4
