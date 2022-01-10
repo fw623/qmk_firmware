@@ -133,8 +133,8 @@ const uint8_t PROGMEM ledmap[MY_MAX_LAYER + 1][DRIVER_LED_TOTAL][3] = {
                                         ooooooo ,ooooooo ,ooooooo       ,ooooooo ,ooooooo ,ooooooo
   ),
   [L_GAMING] = LED_LAYOUT_moonlander(
-    PINK    ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo       ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,
-    ooooooo ,ooooooo ,ooooooo ,BLUE    ,ooooooo ,ooooooo ,ooooooo       ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,
+    ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo       ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,
+    ooooooo ,PINK    ,ooooooo ,BLUE    ,ooooooo ,ooooooo ,ooooooo       ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,
     ooooooo ,ooooooo ,YELLOW  ,FLESH   ,CYAN    ,ooooooo ,ooooooo       ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,
     ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo                         ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,
     ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo          ,ooooooo       ,ooooooo          ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,ooooooo ,
