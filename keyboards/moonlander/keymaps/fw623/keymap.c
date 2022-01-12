@@ -22,6 +22,7 @@
 #include "custom_oneshot.h"
 #include "multihold.h"
 #include "custom_lock.h"
+#include "tmacro.h"
 
 extern bool g_suspend_state;
 extern rgb_config_t rgb_matrix_config;
@@ -101,6 +102,7 @@ static void repeat(keyrecord_t *record, uint8_t code, int times) {
 /* ========== LAYOUT predefined stuff ========== */
 void matrix_scan_user(void) {
     timeout_cosms(); // custom oneshot modifiers
+    handle_tmacro_timer();
 }
 
 static bool hash_is_pressed = false;
@@ -123,6 +125,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!handle_custom_lock(keycode, record)) { return false; }
     if (!handle_cosms(keycode, record)) { return false; }
     if (!handle_multiholds(keycode, record)) { return false; }
+    if (!handle_tmacro(keycode, record)) { return false; }
 
     switch (keycode) {
     case SFT_SPC:

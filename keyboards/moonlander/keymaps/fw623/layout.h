@@ -55,6 +55,8 @@ enum custom_keycodes {
     ST_NUM,  // custom oneshot number layer
     ST_FN,   // custom oneshot function key layer
     ST_LOCK, // lock currently pressed keys until either `ST_LOCK` is hit again, or locked key is pressed
+    TM_REC,  // record a timed macro while held
+    TM_PLAY, // toggle repeated playing of most recently recorded timed macro
 };
 
 
