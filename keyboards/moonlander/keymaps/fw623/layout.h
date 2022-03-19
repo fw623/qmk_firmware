@@ -66,6 +66,7 @@ enum custom_keycodes {
 #define TT_NUM  TT(L_NUM)
 #define TT_FN   TT(L_FN)
 #define MO_FN   MO(L_FN)
+#define TT_GAME TT(L_GAMING)
 
 #define CTL_ENT LCTL_T(KC_ENTER)
 #define CTL_ESC LCTL_T(KC_ESCAPE)

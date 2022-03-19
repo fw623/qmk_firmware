@@ -37,13 +37,13 @@
 
 const uint16_t PROGMEM keymaps [MY_MAX_LAYER + 1][MATRIX_ROWS][MATRIX_COLS] = {
   [L_LOWER] = LAYOUT_moonlander(
-    TG_GAME ,KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,KC_6          ,KC_5    ,KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,TG_QWTZ ,
+    KC_LGUI ,KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,KC_6          ,KC_5    ,KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,TG_QWTZ ,
     _______ ,KC_CAPS ,KC_DOT  ,KC_O    ,KC_U    ,DE_ADIA ,_______       ,_______ ,KC_Q    ,KC_G    ,KC_C    ,KC_L    ,KC_CAPS ,_______ ,
     KC_TAB  ,KC_K    ,KC_A    ,KC_E    ,KC_I    ,DE_Y    ,DE_ODIA       ,_______ ,KC_B    ,KC_T    ,KC_R    ,KC_N    ,KC_F    ,KC_J    ,
     DE_SS   ,KC_H    ,DE_Z    ,KC_X    ,KC_COMM ,DE_UDIA                         ,KC_P    ,KC_D    ,KC_W    ,KC_M    ,KC_S    ,KC_V    ,
     KC_DOWN ,KC_DEL  ,_______ ,NUM_SLSH,KC_SPC           ,LSFT_UA       ,LSFT_LA          ,SFT_MINS,SYM_UNDS,TT_NAV  ,KC_BSPC ,KC_RIGHT,
-                                        CTL_ESC ,GUI_ENT ,KC_SPC        ,KC_SPC  ,GUI_ESC ,ALT_ENT
-  ),
+                                        CTL_ESC ,GUI_ENT ,TT_GAME       ,KC_SPC  ,GUI_ESC ,ALT_ENT
+                                ),
   [L_UPPER] = LAYOUT_moonlander(
     _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______       ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
     _______ ,_______ ,DE_QUOT ,_______ ,_______ ,_______ ,_______       ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
@@ -83,10 +83,10 @@ const uint16_t PROGMEM keymaps [MY_MAX_LAYER + 1][MATRIX_ROWS][MATRIX_COLS] = {
   [L_GAMING] = LAYOUT_moonlander(
     _______ ,KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,KC_6          ,KC_5    ,KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,_______ ,
     KC_ESC  ,KC_TAB  ,KC_Q    ,KC_W    ,KC_E    ,KC_R    ,KC_T          ,_______ ,DE_Z    ,KC_U    ,KC_I    ,KC_O    ,KC_P    ,DE_UDIA ,
-    KC_M    ,KC_CAPS ,KC_A    ,KC_S    ,KC_D    ,KC_F    ,KC_G          ,KC_B    ,KC_H    ,KC_J    ,KC_K    ,KC_L    ,DE_ODIA ,DE_ADIA ,
-    KC_PENT ,KC_LSFT ,DE_Y    ,KC_X    ,KC_C    ,KC_V                            ,KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_MINS ,KC_RSFT ,
+    KC_DEL  ,KC_CAPS ,KC_A    ,KC_S    ,KC_D    ,KC_F    ,KC_G          ,KC_B    ,KC_H    ,KC_J    ,KC_K    ,KC_L    ,DE_ODIA ,DE_ADIA ,
+    KC_ENT  ,KC_LSFT ,DE_Y    ,KC_X    ,KC_C    ,KC_V                            ,KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_MINS ,KC_RSFT ,
     _______ ,KC_LCTL ,KC_B    ,KC_I    ,KC_SPC           ,ST_LOCK       ,_______          ,_______ ,_______ ,_______ ,_______ ,_______ ,
-                                        KC_LALT ,KC_RCTL ,KC_LGUI       ,_______ ,_______ ,_______
+                                        KC_LALT ,KC_RCTL ,TT_GAME       ,_______ ,_______ ,_______
   ),
   [L_NAV] = LAYOUT_moonlander(
     _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______       ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
