@@ -118,14 +118,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if ((last_keycode == KC_COMM) && IS_LAYER_ON(L_UPPER)) {
         register_code(KC_LSFT);
     }
-    if (last_keycode == SFT_SPC && IS_LAYER_ON(L_LCTL)) {
-        register_code(KC_LCTL);
-    }
+    /* if (last_keycode == SFT_SPC && IS_LAYER_ON(L_LCTL)) { */
+    /*     register_code(KC_LCTL); */
+    /* } */
 
     if (!handle_custom_lock(keycode, record)) { return false; }
     if (!handle_cosms(keycode, record)) { return false; }
     if (!handle_multiholds(keycode, record)) { return false; }
     if (!handle_tmacro(keycode, record)) { return false; }
+    /* if (!handle_quickrepeat(keycode, record)) { return false; } */
+
+
+    /* if (keycode == SFT_MINS && last_keycode == CZ_SPC) { */
+    /*     return false; */
+    /* } */
 
     switch (keycode) {
     case SFT_SPC:
@@ -142,12 +148,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case CTL_ESC:
         LAYER_ON_OFF(record->event.pressed, L_LCTL);
         break;
-    case SFT_SPC:
-        if (IS_LAYER_ON(L_LCTL)) {
-            // disable CTL for space tap
-            UN_REGISTER_CODE(!record->event.pressed, KC_LCTL);
-        }
-        break;
+        /* case SFT_SPC: */
+        /*     if (IS_LAYER_ON(L_LCTL)) { */
+        /*         // disable CTL for space tap */
+        /*         UN_REGISTER_CODE(!record->event.pressed, KC_LCTL); */
+        /*     } */
+        /*     break; */
     case SYM_UNDS:
     case NUM_SLSH:
         // NOTE: we must register shift manually because it doesn't work automatically for TAP part

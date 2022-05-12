@@ -91,7 +91,8 @@ enum custom_keycodes {
 #define GUI_ESC LGUI_T(KC_ESCAPE)
 #define GUI_ENT LGUI_T(KC_ENTER)
 #define SFT_MINS LSFT_T(DE_MINS)
-#define SFT_SPC LSFT_T(KC_SPC) // NOTE: this disables CTL for tap
+/* #define SFT_SPC LSFT_T(KC_SPC) // NOTE: this disables CTL for tap */
+#define SFT_SPC LSFT_T(KC_SPC)
 #define LSFT_RA LSFT_T(KC_RIGHT)
 #define LSFT_LA LSFT_T(KC_LEFT)
 #define LSFT_DA LSFT_T(KC_DOWN)
