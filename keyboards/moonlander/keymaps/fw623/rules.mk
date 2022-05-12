@@ -5,3 +5,4 @@ COMMAND_ENABLE = no
 SRC = matrix.c layout.c custom_oneshot.c multihold.c custom_lock.c tmacro.c
 
 LTO_ENABLE = yes # link time optimization for smaller size
+UNICODE_ENABLE = yes

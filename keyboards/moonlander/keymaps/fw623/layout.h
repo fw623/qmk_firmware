@@ -29,6 +29,7 @@ enum layer {
     L_UPPER,
     L_NUM,
     L_NUM2,
+    L_CZ,
     L_FN,
     L_SYMBOL,
     L_SYMBOL2,
@@ -59,6 +60,21 @@ enum custom_keycodes {
     TM_PLAY, // toggle repeated playing of most recently recorded timed macro
 };
 
+#define ZC_ECAR UC(0x011b) // ě
+#define ZC_SCAR UC(0x0161) // š
+#define ZC_CCAR UC(0x010d) // č
+#define ZC_RCAR UC(0x0159) // ř
+#define ZC_ZCAR UC(0x017e) // ž
+#define ZC_NCAR UC(0x0148) // ň
+#define ZC_DCAR UC(0x010f) // ď
+#define ZC_TCAR UC(0x0165) // ť
+#define ZC_YACU UC(0x00fd) // ý
+#define ZC_AACU UC(0x00e1) // á
+#define ZC_IACU UC(0x00ed) // í
+#define ZC_EACU UC(0x00e9) // é
+#define ZC_UACU UC(0x00fa) // ú
+#define ZC_OACU UC(0x00f3) // ó
+#define ZC_URNG UC(0x016f) // ů
 
 #define TG_GAME TG(L_GAMING)
 #define TG_QWTZ TG(L_QWERTZ)
@@ -85,6 +101,7 @@ enum custom_keycodes {
 #define NUM_SLSH LT(L_NUM, DE_SLSH)
 #define NUMCAPS LT(L_NUM, KC_CAPS)
 #define FN_SPC  LT(L_FN, KC_SPC)
+#define CZ_SPC  LT(L_CZ, KC_SPC)
 
 
 extern const uint16_t PROGMEM keymaps[MY_MAX_LAYER + 1][MATRIX_ROWS][MATRIX_COLS];
