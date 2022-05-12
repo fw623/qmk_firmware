@@ -99,9 +99,176 @@ static void repeat(keyrecord_t *record, uint8_t code, int times) {
     }
 }
 
+
+
+
+/* bool quickrepeat_enabled = false; */
+/* bool quickrepeat_active = false; */
+/* uint16_t quickrepeat_period_base = 100; // in ms */
+/* uint16_t quickrepeat_period = 100; // in ms */
+/* /\* uint16_t quickrepeat_on_duration = 1; // in ms *\/ */
+/* uint16_t quickrepeat_stepsize = 5; // in ms */
+/* uint16_t quickrepeat_periodstart = 0; */
+/* uint16_t quickrepeat_keycode = KC_NO; */
+/* uint16_t quickrepeat_last_keycode = KC_NO; */
+
+/* void quickrepeat_on(void) { */
+/*     if (quickrepeat_active) return; */
+/*     quickrepeat_active = true; */
+
+/*     register_code16(quickrepeat_keycode); */
+/* } */
+
+/* void quickrepeat_off(void) { */
+/*     if (!quickrepeat_active) return; */
+/*     quickrepeat_active = false; */
+
+/*     unregister_code16(quickrepeat_keycode); */
+/* } */
+
+/* bool handle_quickrepeat (uint16_t keycode, keyrecord_t *record) { */
+/*     if (keycode < SAFE_RANGE) { */
+/*         quickrepeat_last_keycode = keycode; */
+/*     } */
+
+/*     switch (keycode) { */
+/*     case ST_TOG: */
+/*         if (record->event.pressed) { */
+/*             quickrepeat_enabled = !quickrepeat_enabled; */
+/*             if (!quickrepeat_enabled) { */
+/*                 quickrepeat_off(); */
+/*             } else { */
+/*                 quickrepeat_keycode = quickrepeat_last_keycode; */
+/*             } */
+/*         } */
+/*         quickrepeat_periodstart = timer_read(); */
+/*         return false; */
+/*     case ST_RST: */
+/*         /\* quickrepeat_on_duration = quickrepeat_period; *\/ */
+/*         quickrepeat_period = quickrepeat_period_base; */
+/*         quickrepeat_periodstart = timer_read(); */
+/*         return false; */
+/*     case ST_INC: */
+/*         if (quickrepeat_period - quickrepeat_stepsize > 0) */
+/*             quickrepeat_period -= quickrepeat_stepsize; */
+/*         /\* if (quickrepeat_on_duration + quickrepeat_stepsize <= quickrepeat_period) { *\/ */
+/*         /\*     quickrepeat_on_duration += quickrepeat_stepsize; *\/ */
+/*         /\* } *\/ */
+/*         return false; */
+/*     case ST_DEC: */
+/*         quickrepeat_period += quickrepeat_stepsize; */
+/*         /\* if (quickrepeat_on_duration - quickrepeat_stepsize >= 0) { *\/ */
+/*         /\*     quickrepeat_on_duration -= quickrepeat_stepsize; *\/ */
+/*         /\* } *\/ */
+/*         return false; */
+/*     } */
+
+/*     return true; */
+/* } */
+
+/* void handle_quickrepeat_timer(void) { */
+/*     if (quickrepeat_enabled) { */
+/*         uint16_t since_periodstart = timer_elapsed(quickrepeat_periodstart); */
+/*         if (since_periodstart >= quickrepeat_period) { */
+/*             /\* if (quickrepeat_on_duration > 0) *\/ */
+/*             quickrepeat_on(); */
+/*             quickrepeat_periodstart = timer_read(); */
+/*             /\* } else if (since_periodstart >= quickrepeat_on_duration) { *\/ */
+/*         } else if (since_periodstart >= quickrepeat_period/2) { */
+/*             /\* if (quickrepeat_on_duration < quickrepeat_period) *\/ */
+/*             quickrepeat_off(); */
+/*         } */
+/*     } */
+/* } */
+
+
+
+
+/* #define TMACRO_SIZE_MAX 1024 */
+
+/* typedef struct tmacro_t { */
+/*     uint16_t keycode; */
+/*     uint16_t delay; */
+/*     bool pressed; */
+/* } tmacro_t; */
+
+/* bool tmacro_recording = false; */
+/* bool tmacro_playing = false; */
+/* uint16_t tmacro_index = 0; */
+/* uint16_t tmacro_size = 0; */
+/* tmacro_t tmacro[TMACRO_SIZE_MAX]; */
+/* uint16_t tmacro_timer = 0; */
+/* uint16_t tmacro_record_timer = 0; */
+
+/* uint16_t tmacro_next_index(void) { */
+/*     return (tmacro_index + 1) % tmacro_size; */
+/* } */
+
+/* bool handle_tmacro(uint16_t keycode, keyrecord_t *record) { */
+/*     switch(keycode) { */
+/*     case TM_REC: */
+/*         if (record->event.pressed) { */
+/*             tmacro_recording = true; */
+/*             tmacro_playing = false; */
+/*             tmacro_size = 0; */
+/*             tmacro_record_timer = timer_read(); */
+/*         } else { */
+/*             tmacro_recording = false; */
+/*             tmacro_playing = false; */
+/*         } */
+/*         return false; */
+
+/*     case TM_PLAY: */
+/*         if (record->event.pressed && !tmacro_recording) { */
+/*             tmacro_playing = !tmacro_playing; */
+/*             if (tmacro_playing) { */
+/*                 tmacro_index = 0; */
+/*                 tmacro_timer = timer_read(); */
+/*             } */
+/*             if (!tmacro_playing) { */
+/*                 // release all potentially pressed keys */
+/*                 for (int i = 0; i < tmacro_size; i++) { */
+/*                     if (tmacro[i].pressed) { */
+/*                         unregister_code16(tmacro[i].keycode); */
+/*                     } */
+/*                 } */
+/*             } */
+/*         } */
+/*         return false; */
+/*     } */
+
+/*     if (tmacro_recording) { */
+/*         if (tmacro_size <= TMACRO_SIZE_MAX){ */
+/*             tmacro[tmacro_size].keycode = keycode; */
+/*             tmacro[tmacro_size].delay = timer_elapsed(tmacro_record_timer); */
+/*             tmacro[tmacro_size].pressed = record->event.pressed; */
+
+/*             tmacro_size++; */
+/*         } */
+/*         return true; */
+/*     } */
+
+/*     return true; */
+/* } */
+
+
+
+/* void handle_tmacro_timer(void) { */
+/*     if (tmacro_playing && timer_elapsed(tmacro_timer) >= tmacro[tmacro_index].delay) { */
+/*         if (tmacro_index == tmacro_size - 1) { */
+/*             tmacro_timer = timer_read(); */
+/*         } */
+
+/*         UN_REGISTER_CODE16(tmacro[tmacro_index].pressed, tmacro[tmacro_index].keycode); */
+/*         tmacro_index = tmacro_next_index(); */
+/*     } */
+/* } */
+
+
 /* ========== LAYOUT predefined stuff ========== */
 void matrix_scan_user(void) {
     timeout_cosms(); // custom oneshot modifiers
+    /* handle_quickrepeat_timer(); */
     handle_tmacro_timer();
 }
 
