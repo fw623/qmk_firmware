@@ -15,6 +15,7 @@
  */
 
 #include "action_layer.h"
+#include "quantum.h"
 #include QMK_KEYBOARD_H
 #include "keymap_german.h"
 #include "config.h"
@@ -265,6 +266,12 @@ static void repeat(keyrecord_t *record, uint8_t code, int times) {
 /*     } */
 /* } */
 
+void layer_on_state(layer_state_t *state, uint8_t layer) {
+    *state = (*state) | ((layer_state_t)1 << layer);
+}
+void layer_off_state(layer_state_t *state, uint8_t layer) {
+    *state = (*state) & ~((layer_state_t)1 << layer);
+}
 
 /* ========== LAYOUT predefined stuff ========== */
 void matrix_scan_user(void) {
@@ -273,12 +280,9 @@ void matrix_scan_user(void) {
     handle_tmacro_timer();
 }
 
+static bool TGL_W_is_active = false, TGL_LSFT_is_active = false;
 static bool hash_is_pressed = false;
 static uint16_t last_keycode = KC_NO, current_keycode = KC_NO;
-
-static bool L_GAMING_TOGGLE_is_active = false;
-static bool TGL_W_is_active = false;
-static bool TGL_LSFT_is_active = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     last_keycode = current_keycode;
@@ -376,28 +380,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         LAYER_ON_OFF(record->event.pressed, L_UPPER);
         // we need to call this here to get layer LEDs activated (for whatever reason)
         return process_action_kb(record);
-    case TG_GAME:
-    case TT_GAME:
-        // unset CAPS on L_GAMING toggle
-        if (!record->event.pressed && host_keyboard_led_state().caps_lock) {
-            tap_code(KC_CAPS);
-        }
-
-        if (IS_LAYER_ON(L_GAMING) && IS_LAYER_ON(L_GAMING_TOGGLE)) {
-            layer_off(L_GAMING_TOGGLE);
-            if (TGL_W_is_active) {
-                TGL_W_is_active = false;
-                unregister_code(KC_W);
-            }
-            if (TGL_LSFT_is_active) {
-                TGL_LSFT_is_active = false;
-                unregister_code(KC_LSFT);
-            }
-        }
-        if (!IS_LAYER_ON(L_GAMING) && L_GAMING_TOGGLE_is_active) {
-            layer_on(L_GAMING_TOGGLE);
-        }
-        break;
     case RGB_SLD:
         if (record->event.pressed) { rgblight_mode(1); }
         return false;
@@ -420,11 +402,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             REGISTER_OR_UNREGISTER_CODE(TGL_LSFT_is_active, KC_LSFT);
         }
         break;
-    case TG_TGL:
-        if (record->event.pressed) {
-            L_GAMING_TOGGLE_is_active = !IS_LAYER_ON(L_GAMING_TOGGLE);
+    }
+
+    return true;
+}
+
+
+static layer_state_t last_layer_state = 0;
+static bool reenable_gaming_toggle_layer = false;
+
+/* calling `tap_code` inside `layer_state_set_user` seems to cause the keyboard to hang */
+/* calling `layer_on` etc inside `layer_state_set_user` does not actually apply the changes */
+layer_state_t layer_state_set_user(layer_state_t state) {
+    if (IS_LAYER_ON_STATE(state ^ last_layer_state, L_GAMING)) {
+        if (host_keyboard_led_state().caps_lock) {
+            unregister_code(KC_LOCKING_CAPS_LOCK);
         }
-        if (IS_LAYER_ON(L_GAMING_TOGGLE) && record->event.pressed) {
+
+        if (IS_LAYER_ON_STATE(state, L_GAMING) && reenable_gaming_toggle_layer) {
+            layer_on_state(&state, L_GAMING_TOGGLE);
+        }
+        if (IS_LAYER_OFF_STATE(state, L_GAMING)) {
+            reenable_gaming_toggle_layer = IS_LAYER_ON_STATE(state, L_GAMING_TOGGLE);
+            layer_off_state(&state, L_GAMING_TOGGLE);
+        }
+    }
+
+    if (IS_LAYER_ON_STATE(state ^ last_layer_state, L_GAMING_TOGGLE)) {
+        if (IS_LAYER_OFF_STATE(state, L_GAMING_TOGGLE)) {
             if (TGL_W_is_active) {
                 TGL_W_is_active = false;
                 unregister_code(KC_W);
@@ -434,8 +439,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_LSFT);
             }
         }
-        break;
     }
 
-    return true;
+    last_layer_state = state;
+    return state;
 }
