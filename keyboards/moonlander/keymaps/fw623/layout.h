@@ -20,8 +20,8 @@
 #include "moonlander.h"
 
 #define LAYER_ON_OFF(on, layer) { if (on) { layer_on(layer); } else { layer_off(layer); } }
-#define UN_REGISTER_CODE(register, code) { if (register) { register_code(code); } else { unregister_code(code); } }
-#define UN_REGISTER_CODE16(register, code) { if (register) { register_code16(code); } else { unregister_code16(code); } }
+#define REGISTER_OR_UNREGISTER_CODE(register, code) { if (register) { register_code(code); } else { unregister_code(code); } }
+#define REGISTER_OR_UNREGISTER_CODE16(register, code) { if (register) { register_code16(code); } else { unregister_code16(code); } }
 
 /* ========== LAYER definitions ========== */
 enum layer {
@@ -37,6 +37,7 @@ enum layer {
     L_MOUSE,
     L_QWERTZ,
     L_GAMING,
+    L_GAMING_TOGGLE, // toggle handling for gaming
     L_NAV,
 };
 #define MY_MAX_LAYER L_NAV
@@ -62,6 +63,9 @@ enum custom_keycodes {
     ST_RST,
     TM_REC,  // record a timed macro while held
     TM_PLAY, // toggle repeated playing of most recently recorded timed macro
+    TGL_W,    // toggle W
+    TGL_S,    // normal S but also release toggled W
+    TGL_LSFT, // toggle LSHIFT
 };
 
 #define ZC_ECAR UC(0x011b) // ě
@@ -87,6 +91,7 @@ enum custom_keycodes {
 #define TT_FN   TT(L_FN)
 #define MO_FN   MO(L_FN)
 #define TT_GAME TT(L_GAMING)
+#define TG_TGL  TG(L_GAMING_TOGGLE)
 
 #define CTL_ENT LCTL_T(KC_ENTER)
 #define CTL_ESC LCTL_T(KC_ESCAPE)

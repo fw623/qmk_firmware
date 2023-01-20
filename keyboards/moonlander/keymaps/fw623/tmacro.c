@@ -73,7 +73,7 @@ void handle_tmacro_timer(void) {
             tmacro_timer = timer_read();
         }
 
-        UN_REGISTER_CODE16(tmacro[tmacro_index].pressed, tmacro[tmacro_index].keycode);
+        REGISTER_OR_UNREGISTER_CODE16(tmacro[tmacro_index].pressed, tmacro[tmacro_index].keycode);
         tmacro_index = tmacro_next_index();
     }
 }

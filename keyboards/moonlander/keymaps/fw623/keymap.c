@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "action_layer.h"
 #include QMK_KEYBOARD_H
 #include "keymap_german.h"
 #include "config.h"
@@ -259,7 +260,7 @@ static void repeat(keyrecord_t *record, uint8_t code, int times) {
 /*             tmacro_timer = timer_read(); */
 /*         } */
 
-/*         UN_REGISTER_CODE16(tmacro[tmacro_index].pressed, tmacro[tmacro_index].keycode); */
+/*         REGISTER_OR_UNREGISTER_CODE16(tmacro[tmacro_index].pressed, tmacro[tmacro_index].keycode); */
 /*         tmacro_index = tmacro_next_index(); */
 /*     } */
 /* } */
@@ -274,6 +275,10 @@ void matrix_scan_user(void) {
 
 static bool hash_is_pressed = false;
 static uint16_t last_keycode = KC_NO, current_keycode = KC_NO;
+
+static bool L_GAMING_TOGGLE_is_active = false;
+static bool TGL_W_is_active = false;
+static bool TGL_LSFT_is_active = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     last_keycode = current_keycode;
@@ -318,20 +323,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         /* case SFT_SPC: */
         /*     if (IS_LAYER_ON(L_LCTL)) { */
         /*         // disable CTL for space tap */
-        /*         UN_REGISTER_CODE(!record->event.pressed, KC_LCTL); */
+        /*         REGISTER_OR_UNREGISTER_CODE(!record->event.pressed, KC_LCTL); */
         /*     } */
         /*     break; */
     case SYM_UNDS:
     case NUM_SLSH:
         // NOTE: we must register shift manually because it doesn't work automatically for TAP part
         if (!IS_LAYER_ON(L_UPPER)) {
-            UN_REGISTER_CODE(record->event.pressed, KC_LSFT);
+            REGISTER_OR_UNREGISTER_CODE(record->event.pressed, KC_LSFT);
         }
         break;
     case KC_COMM:
         // NOTE: we must unregister shift temporarily
         if (IS_LAYER_ON(L_UPPER)) {
-            UN_REGISTER_CODE(!record->event.pressed, KC_LSFT);
+            REGISTER_OR_UNREGISTER_CODE(!record->event.pressed, KC_LSFT);
         }
         break;
     case DE_HASH:
@@ -371,15 +376,65 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         LAYER_ON_OFF(record->event.pressed, L_UPPER);
         // we need to call this here to get layer LEDs activated (for whatever reason)
         return process_action_kb(record);
-    case TG(L_GAMING):
+    case TG_GAME:
+    case TT_GAME:
         // unset CAPS on L_GAMING toggle
         if (!record->event.pressed && host_keyboard_led_state().caps_lock) {
             tap_code(KC_CAPS);
+        }
+
+        if (IS_LAYER_ON(L_GAMING) && IS_LAYER_ON(L_GAMING_TOGGLE)) {
+            layer_off(L_GAMING_TOGGLE);
+            if (TGL_W_is_active) {
+                TGL_W_is_active = false;
+                unregister_code(KC_W);
+            }
+            if (TGL_LSFT_is_active) {
+                TGL_LSFT_is_active = false;
+                unregister_code(KC_LSFT);
+            }
+        }
+        if (!IS_LAYER_ON(L_GAMING) && L_GAMING_TOGGLE_is_active) {
+            layer_on(L_GAMING_TOGGLE);
         }
         break;
     case RGB_SLD:
         if (record->event.pressed) { rgblight_mode(1); }
         return false;
+    case TGL_W:
+        if (record->event.pressed) {
+            TGL_W_is_active = !TGL_W_is_active;
+            REGISTER_OR_UNREGISTER_CODE(TGL_W_is_active, KC_W);
+        }
+        break;
+    case TGL_S:
+        if (TGL_W_is_active) {
+            TGL_W_is_active = false;
+            unregister_code(KC_W);
+        }
+        REGISTER_OR_UNREGISTER_CODE(record->event.pressed, KC_S);
+        break;
+    case TGL_LSFT:
+        if (record->event.pressed) {
+            TGL_LSFT_is_active = !TGL_LSFT_is_active;
+            REGISTER_OR_UNREGISTER_CODE(TGL_LSFT_is_active, KC_LSFT);
+        }
+        break;
+    case TG_TGL:
+        if (record->event.pressed) {
+            L_GAMING_TOGGLE_is_active = !IS_LAYER_ON(L_GAMING_TOGGLE);
+        }
+        if (IS_LAYER_ON(L_GAMING_TOGGLE) && record->event.pressed) {
+            if (TGL_W_is_active) {
+                TGL_W_is_active = false;
+                unregister_code(KC_W);
+            }
+            if (TGL_LSFT_is_active) {
+                TGL_LSFT_is_active = false;
+                unregister_code(KC_LSFT);
+            }
+        }
+        break;
     }
 
     return true;
