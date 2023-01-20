@@ -63,9 +63,10 @@ enum custom_keycodes {
     ST_RST,
     TM_REC,  // record a timed macro while held
     TM_PLAY, // toggle repeated playing of most recently recorded timed macro
-    TGL_W,    // toggle W
-    TGL_S,    // normal S but also release toggled W
-    TGL_LSFT, // toggle LSHIFT
+    TGL_W,   // toggle W
+    TGL_S,   // normal S but also release toggled W
+    TGL_LSFT,// toggle LSHIFT
+    CZ_NUM,  // activate L_CZ when held, but toggle L_NUM when tapped
 };
 
 #define ZC_ECAR UC(0x011b) // ě

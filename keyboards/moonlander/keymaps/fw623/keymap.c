@@ -200,6 +200,7 @@ void matrix_scan_user(void) {
 
 static bool TGL_W_is_active = false, TGL_LSFT_is_active = false;
 static bool hash_is_pressed = false;
+static bool reenable_number_layer = false;
 static uint16_t last_keycode = KC_NO, current_keycode = KC_NO;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -318,6 +319,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
             TGL_LSFT_is_active = !TGL_LSFT_is_active;
             REGISTER_OR_UNREGISTER_CODE(TGL_LSFT_is_active, KC_LSFT);
+        }
+        break;
+    case CZ_NUM:
+        if (record->event.pressed) {
+            if (IS_LAYER_ON(L_NUM)) {
+                reenable_number_layer = true;
+                layer_off(L_NUM);
+            } else {
+                reenable_number_layer = false;
+                layer_on(L_CZ);
+            }
+        } else {
+            if (last_keycode == CZ_NUM) {
+                if (reenable_number_layer) {
+                    layer_off(L_NUM);
+                } else {
+                    layer_off(L_CZ);
+                    layer_on(L_NUM);
+                }
+            } else {
+                if (reenable_number_layer) {
+                    layer_on(L_NUM);
+                } else {
+                    layer_off(L_CZ);
+                }
+            }
         }
         break;
     }
