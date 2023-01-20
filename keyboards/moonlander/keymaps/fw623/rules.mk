@@ -2,7 +2,7 @@
 
 CONSOLE_ENABLE = no
 COMMAND_ENABLE = no
-SRC = matrix.c layout.c custom_oneshot.c multihold.c custom_lock.c tmacro.c
+SRC = matrix.c layout.c custom_oneshot.c multihold.c custom_lock.c tmacro.c quickrepeat.c
 
 LTO_ENABLE = yes # link time optimization for smaller size
 UNICODE_ENABLE = yes

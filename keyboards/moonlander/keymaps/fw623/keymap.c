@@ -25,6 +25,7 @@
 #include "multihold.h"
 #include "custom_lock.h"
 #include "tmacro.h"
+#include "quickrepeat.h"
 
 extern bool g_suspend_state;
 extern rgb_config_t rgb_matrix_config;
@@ -100,89 +101,6 @@ static void repeat(keyrecord_t *record, uint8_t code, int times) {
         unregister_code(code);
     }
 }
-
-
-
-
-/* bool quickrepeat_enabled = false; */
-/* bool quickrepeat_active = false; */
-/* uint16_t quickrepeat_period_base = 100; // in ms */
-/* uint16_t quickrepeat_period = 100; // in ms */
-/* /\* uint16_t quickrepeat_on_duration = 1; // in ms *\/ */
-/* uint16_t quickrepeat_stepsize = 5; // in ms */
-/* uint16_t quickrepeat_periodstart = 0; */
-/* uint16_t quickrepeat_keycode = KC_NO; */
-/* uint16_t quickrepeat_last_keycode = KC_NO; */
-
-/* void quickrepeat_on(void) { */
-/*     if (quickrepeat_active) return; */
-/*     quickrepeat_active = true; */
-
-/*     register_code16(quickrepeat_keycode); */
-/* } */
-
-/* void quickrepeat_off(void) { */
-/*     if (!quickrepeat_active) return; */
-/*     quickrepeat_active = false; */
-
-/*     unregister_code16(quickrepeat_keycode); */
-/* } */
-
-/* bool handle_quickrepeat (uint16_t keycode, keyrecord_t *record) { */
-/*     if (keycode < SAFE_RANGE) { */
-/*         quickrepeat_last_keycode = keycode; */
-/*     } */
-
-/*     switch (keycode) { */
-/*     case ST_TOG: */
-/*         if (record->event.pressed) { */
-/*             quickrepeat_enabled = !quickrepeat_enabled; */
-/*             if (!quickrepeat_enabled) { */
-/*                 quickrepeat_off(); */
-/*             } else { */
-/*                 quickrepeat_keycode = quickrepeat_last_keycode; */
-/*             } */
-/*         } */
-/*         quickrepeat_periodstart = timer_read(); */
-/*         return false; */
-/*     case ST_RST: */
-/*         /\* quickrepeat_on_duration = quickrepeat_period; *\/ */
-/*         quickrepeat_period = quickrepeat_period_base; */
-/*         quickrepeat_periodstart = timer_read(); */
-/*         return false; */
-/*     case ST_INC: */
-/*         if (quickrepeat_period - quickrepeat_stepsize > 0) */
-/*             quickrepeat_period -= quickrepeat_stepsize; */
-/*         /\* if (quickrepeat_on_duration + quickrepeat_stepsize <= quickrepeat_period) { *\/ */
-/*         /\*     quickrepeat_on_duration += quickrepeat_stepsize; *\/ */
-/*         /\* } *\/ */
-/*         return false; */
-/*     case ST_DEC: */
-/*         quickrepeat_period += quickrepeat_stepsize; */
-/*         /\* if (quickrepeat_on_duration - quickrepeat_stepsize >= 0) { *\/ */
-/*         /\*     quickrepeat_on_duration -= quickrepeat_stepsize; *\/ */
-/*         /\* } *\/ */
-/*         return false; */
-/*     } */
-
-/*     return true; */
-/* } */
-
-/* void handle_quickrepeat_timer(void) { */
-/*     if (quickrepeat_enabled) { */
-/*         uint16_t since_periodstart = timer_elapsed(quickrepeat_periodstart); */
-/*         if (since_periodstart >= quickrepeat_period) { */
-/*             /\* if (quickrepeat_on_duration > 0) *\/ */
-/*             quickrepeat_on(); */
-/*             quickrepeat_periodstart = timer_read(); */
-/*             /\* } else if (since_periodstart >= quickrepeat_on_duration) { *\/ */
-/*         } else if (since_periodstart >= quickrepeat_period/2) { */
-/*             /\* if (quickrepeat_on_duration < quickrepeat_period) *\/ */
-/*             quickrepeat_off(); */
-/*         } */
-/*     } */
-/* } */
-
 
 void layer_on_state(layer_state_t *state, uint8_t layer) {
     *state = (*state) | ((layer_state_t)1 << layer);
