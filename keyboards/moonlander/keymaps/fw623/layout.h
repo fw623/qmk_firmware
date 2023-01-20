@@ -1,4 +1,4 @@
-/* Copyright 2020 fw623 (https://github.com/fw623/)
+/* Copyright 2023 fw623 (https://github.com/fw623/)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
