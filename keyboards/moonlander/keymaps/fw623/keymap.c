@@ -27,13 +27,38 @@
 #include "tmacro.h"
 #include "quickrepeat.h"
 
+/* ========================================= */
+/* ========== LAYOUT misc/utility ========== */
+/* ========================================= */
+
+static bool TGL_W_is_active = false, TGL_LSFT_is_active = false;
+static bool hash_is_pressed = false;
+static bool reenable_number_layer = false;
+static uint16_t last_keycode = KC_NO, current_keycode = KC_NO;
+static layer_state_t last_layer_state = 0;
+static bool reenable_gaming_toggle_layer = false;
 extern bool g_suspend_state;
 extern rgb_config_t rgb_matrix_config;
 
-/* ========== LED stuff ========== */
-void keyboard_post_init_user(void) {
-    rgb_matrix_enable();
+static void repeat(keyrecord_t *record, uint8_t code, int times) {
+    if (record->event.pressed) {
+        for (int i = 0; i < times - 1; i++) { tap_code(code); }
+        register_code(code);
+    } else {
+        unregister_code(code);
+    }
 }
+
+void layer_on_state(layer_state_t *state, uint8_t layer) {
+    *state = (*state) | ((layer_state_t)1 << layer);
+}
+void layer_off_state(layer_state_t *state, uint8_t layer) {
+    *state = (*state) & ~((layer_state_t)1 << layer);
+}
+
+/* =============================== */
+/* ========== LED stuff ========== */
+/* =============================== */
 
 /* set layer color on both "piano keys" */
 static void set_layer_lock_color(bool *other_active, uint8_t r, uint8_t g, uint8_t b) {
@@ -80,6 +105,14 @@ void set_layer_color(int layer) {
     }
 }
 
+/* ================================================= */
+/* ========== LAYOUT hook implementations ========== */
+/* ================================================= */
+
+void keyboard_post_init_user(void) {
+    rgb_matrix_enable();
+}
+
 void rgb_matrix_indicators_user(void) {
     /* if (g_suspend_state || keyboard_config.disable_layer_led) { return; } */
     if (keyboard_config.disable_layer_led) { return; } // TODO: figure out why `g_suspend_state` is no longer defined
@@ -92,34 +125,11 @@ void rgb_matrix_indicators_user(void) {
     }
 }
 
-/* ========== LAYOUT custom stuff ========== */
-static void repeat(keyrecord_t *record, uint8_t code, int times) {
-    if (record->event.pressed) {
-        for (int i = 0; i < times - 1; i++) { tap_code(code); }
-        register_code(code);
-    } else {
-        unregister_code(code);
-    }
-}
-
-void layer_on_state(layer_state_t *state, uint8_t layer) {
-    *state = (*state) | ((layer_state_t)1 << layer);
-}
-void layer_off_state(layer_state_t *state, uint8_t layer) {
-    *state = (*state) & ~((layer_state_t)1 << layer);
-}
-
-/* ========== LAYOUT predefined stuff ========== */
 void matrix_scan_user(void) {
     timeout_cosms(); // custom oneshot modifiers
     /* handle_quickrepeat_timer(); */
     handle_tmacro_timer();
 }
-
-static bool TGL_W_is_active = false, TGL_LSFT_is_active = false;
-static bool hash_is_pressed = false;
-static bool reenable_number_layer = false;
-static uint16_t last_keycode = KC_NO, current_keycode = KC_NO;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     last_keycode = current_keycode;
@@ -269,10 +279,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     return true;
 }
-
-
-static layer_state_t last_layer_state = 0;
-static bool reenable_gaming_toggle_layer = false;
 
 /* calling `tap_code` inside `layer_state_set_user` seems to cause the keyboard to hang */
 /* calling `layer_on` etc inside `layer_state_set_user` does not actually apply the changes */
