@@ -168,7 +168,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
     switch (keycode) {
-    case CTL_ESC:
+    case CTL_ENT:
         LAYER_ON_OFF(record->event.pressed, L_LCTL);
         break;
         /* case SFT_SPC: */

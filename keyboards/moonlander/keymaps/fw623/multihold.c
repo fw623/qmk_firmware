@@ -17,8 +17,8 @@
 #include "multihold.h"
 
 static multihold_t multiholds[MULTIHOLDS_LEN] = {
-    {.layer = L_NUM2, .keys_len = 2, .keys = {{CTL_ESC, KC_NO, false}, {GUI_ENT, KC_LGUI, false}}},
-    {.layer = L_SYMBOL2, .keys_len = 2, .keys = {{ALT_ENT, KC_NO, false}, {GUI_ESC, KC_LGUI, false}}},
+    {.layer = L_NUM2, .keys_len = 2, .keys = {{CTL_ENT, KC_NO, false}, {GUI_ESC, KC_LGUI, false}}},
+    {.layer = L_SYMBOL2, .keys_len = 2, .keys = {{ALT_ESC, KC_NO, false}, {GUI_ENT, KC_LGUI, false}}},
 };
 
 bool handle_multiholds(uint16_t keycode, keyrecord_t *record) {

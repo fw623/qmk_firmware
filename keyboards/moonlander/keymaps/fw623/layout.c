@@ -42,8 +42,8 @@ const uint16_t PROGMEM keymaps [MY_MAX_LAYER + 1][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB  ,KC_K    ,KC_A    ,KC_E    ,KC_I    ,DE_Y    ,DE_ODIA       ,_______ ,KC_B    ,KC_T    ,KC_R    ,KC_N    ,KC_F    ,KC_J    ,
     DE_SS   ,KC_H    ,DE_Z    ,KC_X    ,KC_COMM ,DE_UDIA                         ,KC_P    ,KC_D    ,KC_W    ,KC_M    ,KC_S    ,KC_V    ,
     KC_DOWN ,KC_DEL  ,CZ_NUM  ,NUM_SLSH,KC_SPC           ,LSFT_UA       ,LSFT_LA          ,SFT_MINS,SYM_UNDS,TT_NAV  ,KC_BSPC ,KC_RIGHT,
-                                        CTL_ESC ,GUI_ENT ,TT_GAME       ,KC_SPC  ,GUI_ESC ,ALT_ENT
-  ),
+                                        CTL_ENT ,GUI_ESC ,TT_GAME       ,KC_SPC  ,GUI_ENT ,ALT_ESC
+                               ),
   [L_UPPER] = LAYOUT_moonlander(
     _______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______       ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
     _______ ,_______ ,DE_QUOT ,_______ ,_______ ,_______ ,_______       ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,_______ ,
